@@ -25,9 +25,11 @@ const deg = (d: number) => (d * Math.PI) / 180;
 
 export const DIFFICULTY: Record<Difficulty, DifficultySettings> = {
   // Little ones: small nods reach the corners, a small "o" breathes fire,
-  // and a marker shows where the fire will land.
-  easy: { maxYaw: deg(12), maxPitch: deg(10), targetRadius: 0.3, jawOn: 0.18, jawOff: 0.12, graceMs: 700, aimMarker: true },
-  medium: { maxYaw: deg(17), maxPitch: deg(14), targetRadius: 0.25, jawOn: 0.26, jawOff: 0.18, graceMs: 400, aimMarker: false },
+  // and a marker shows where the fire will land. The screen is tall, so
+  // maxPitch is larger than maxYaw to keep up/down from feeling twitchy:
+  // reaching a corner takes about the same tilt as the turn.
+  easy: { maxYaw: deg(12), maxPitch: deg(16), targetRadius: 0.3, jawOn: 0.18, jawOff: 0.12, graceMs: 700, aimMarker: true },
+  medium: { maxYaw: deg(17), maxPitch: deg(19), targetRadius: 0.25, jawOn: 0.26, jawOff: 0.18, graceMs: 400, aimMarker: false },
   // The original settings.
   hard: { maxYaw: deg(24), maxPitch: deg(20), targetRadius: 0.2, jawOn: 0.35, jawOff: 0.25, graceMs: 200, aimMarker: false },
 };

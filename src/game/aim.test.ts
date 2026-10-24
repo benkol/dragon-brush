@@ -74,6 +74,14 @@ describe('aim', () => {
     expect(DIFFICULTIES.filter((d) => DIFFICULTY[d].aimMarker)).toEqual(['easy']);
   });
 
+  it('on a phone screen, reaching a corner takes about the same tilt as the turn', () => {
+    const phone = { w: 375, h: 812 };
+    for (const d of DIFFICULTIES) {
+      const need = neededTurnDeg('TR', phone, DIFFICULTY[d]);
+      expect(need.pitch).toBeGreaterThan(need.yaw * 0.7);
+    }
+  });
+
   it('easy targets are bigger, and unknown values fall back to medium', () => {
     expect(targetRadius(size, DIFFICULTY.easy)).toBeGreaterThan(targetRadius(size, DIFFICULTY.hard));
     expect(settingsFor(undefined)).toBe(DIFFICULTY.medium);
