@@ -39,30 +39,30 @@ describe('aim', () => {
     expect(back.y).toBeCloseTo(456);
   });
 
-  it('hard keeps the original settings', () => {
+  it('hard keeps the original mouth, target and grace settings', () => {
     const h = DIFFICULTY.hard;
-    expect(h.maxYaw).toBeCloseTo((24 * Math.PI) / 180);
-    expect(h.maxPitch).toBeCloseTo((20 * Math.PI) / 180);
     expect([h.targetRadius, h.jawOn, h.jawOff, h.graceMs]).toEqual([0.2, 0.35, 0.25, 200]);
   });
 
-  it('each step easier needs less turning, less mouth, bigger targets and more grace', () => {
+  it('each step easier has a calmer aim, less mouth, bigger targets and more grace', () => {
     const [easy, medium, hard] = DIFFICULTIES.map((d) => DIFFICULTY[d]);
     for (const [a, b] of [[easy, medium], [medium, hard]]) {
-      expect(a.maxYaw).toBeLessThan(b.maxYaw);
-      expect(a.maxPitch).toBeLessThan(b.maxPitch);
+      expect(a.maxYaw).toBeGreaterThan(b.maxYaw);
+      expect(a.maxPitch).toBeGreaterThan(b.maxPitch);
       expect(a.jawOn).toBeLessThan(b.jawOn);
       expect(a.targetRadius).toBeGreaterThan(b.targetRadius);
       expect(a.graceMs).toBeGreaterThan(b.graceMs);
-      expect(neededTurnDeg('TR', size, a).yaw).toBeLessThan(neededTurnDeg('TR', size, b).yaw);
     }
     for (const d of [easy, medium, hard]) expect(d.jawOff).toBeLessThan(d.jawOn);
   });
 
-  it('a small head turn hits on easy but not on hard', () => {
-    const pose = { yaw: (9 * Math.PI) / 180, pitch: (5 * Math.PI) / 180 };
-    expect(isHit(aimPoint(pose, zero, size, DIFFICULTY.easy), 'TR', size, DIFFICULTY.easy)).toBe(true);
-    expect(isHit(aimPoint(pose, zero, size, DIFFICULTY.hard), 'TR', size, DIFFICULTY.hard)).toBe(false);
+  it('a small wobble moves the fire less on easy than on hard', () => {
+    const pose = { yaw: (3 * Math.PI) / 180, pitch: (3 * Math.PI) / 180 };
+    const moved = (d: (typeof DIFFICULTY)['easy']) => {
+      const p = aimPoint(pose, zero, size, d);
+      return Math.hypot(p.x - size.w / 2, p.y - size.h / 2);
+    };
+    expect(moved(DIFFICULTY.easy)).toBeLessThan(moved(DIFFICULTY.hard));
   });
 
   it('a slightly open mouth breathes fire on easy only', () => {
