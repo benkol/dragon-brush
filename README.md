@@ -68,11 +68,11 @@ Run the tests with `npm test`. Security-rule tests need Java and the emulator: `
 
 ## App Check (protects the database)
 
-App Check makes Firestore accept requests only from this app, using reCAPTCHA v3 invisibly.
+App Check makes Firestore accept requests only from this app, using **reCAPTCHA Enterprise** invisibly. Classic reCAPTCHA v3 is deprecated for App Check.
 
-1. Create a **reCAPTCHA v3** key at <https://www.google.com/recaptcha/admin/create>. Add the domains `dragon-brush.web.app`, `dragon-brush.firebaseapp.com` and `localhost`.
-2. Firebase console → **App Check** → **Apps** → your web app → **reCAPTCHA** → paste the **secret key** and save.
-3. Put the **site key** in `.env.local` as `VITE_RECAPTCHA_SITE_KEY=…`, then run `npm run deploy`.
+1. Firebase console → **App Check** → **Apps** → *Dragon Brush Web* → **reCAPTCHA Enterprise**. Enter a website, score-based key (create one in the Google Cloud console under reCAPTCHA, or use a classic key migrated there). Allowed domains: `dragon-brush.web.app`, `dragon-brush.firebaseapp.com` and `localhost`. Save.
+2. Put the same **site key** in `.env.local` as `VITE_RECAPTCHA_SITE_KEY=…`, then run `npm run deploy`.
+3. Usage is free within Google's monthly free allowance, which a family app stays far below.
 4. Wait a day or two and watch **App Check → APIs → Cloud Firestore**. Most requests should be "verified". Phones running an older version of the app show as unverified until they update.
 5. Click **Enforce** for Cloud Firestore. From then on, requests without App Check are refused.
 

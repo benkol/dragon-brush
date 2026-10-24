@@ -39,7 +39,7 @@ import {
   where,
   writeBatch,
 } from 'firebase/firestore';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 import { firebaseConfig, RECAPTCHA_SITE_KEY, USE_EMULATORS } from '../config';
 import { INVITE_TTL_MS, JoinError, kidDoc, newInviteCode, normalizeKid, NotEnoughPointsError, type KidUpdate, type Repo } from './repo';
 import type { AppUser, CustomReward, Family, Kid, SessionRecord } from './types';
@@ -61,7 +61,8 @@ if (USE_EMULATORS) {
   // On localhost a debug token is printed in the console instead; add it
   // under App Check → Manage debug tokens to use the real project locally.
   if (location.hostname === 'localhost') (self as unknown as { FIREBASE_APPCHECK_DEBUG_TOKEN: boolean }).FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-  initializeAppCheck(app, { provider: new ReCaptchaV3Provider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true });
+  // reCAPTCHA Enterprise: classic reCAPTCHA v3 is deprecated for App Check.
+  initializeAppCheck(app, { provider: new ReCaptchaEnterpriseProvider(RECAPTCHA_SITE_KEY), isTokenAutoRefreshEnabled: true });
 }
 
 const familyRef = (fid: string) => doc(db, 'families', fid);

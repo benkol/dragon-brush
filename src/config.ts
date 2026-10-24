@@ -12,7 +12,7 @@ export const firebaseConfig = {
 /** Without a Firebase config the app runs in demo mode with on-device storage. */
 export const DEMO_MODE = !env.VITE_FIREBASE_API_KEY;
 export const USE_EMULATORS = env.VITE_USE_FIREBASE_EMULATORS === 'true';
-/** reCAPTCHA v3 site key for Firebase App Check (public; see README). Empty = App Check off. */
+/** reCAPTCHA Enterprise site key for Firebase App Check (public; see README). Empty = App Check off. */
 export const RECAPTCHA_SITE_KEY: string = env.VITE_RECAPTCHA_SITE_KEY ?? '';
 
 const params = new URLSearchParams(location.search);
