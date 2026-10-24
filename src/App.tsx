@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useLayoutEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppProvider, useApp } from './auth/AppProvider';
 import LoginScreen from './auth/LoginScreen';
@@ -27,6 +27,10 @@ function Splash() {
 function AppRoutes() {
   const { user } = useApp();
   const { pathname } = useLocation();
+  // The window does the scrolling, so a new screen would open where the last one was scrolled to.
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   // The privacy note is readable before signing in.
   if (pathname === '/privacy') return <PrivacyScreen />;
   if (!user) return <LoginScreen />;
