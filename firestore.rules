@@ -1,0 +1,103 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isMember(fid) {
+      return signedIn()
+        && request.auth.uid in get(/databases/$(database)/documents/families/$(fid)).data.members;
+    }
+
+    // Each parent's pointer to their family. Only they can see or change it.
+    match /users/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    // A family: kids, prizes and brush history shared by its member parents.
+    match /families/{fid} {
+      allow read: if signedIn() && request.auth.uid in resource.data.members;
+
+      // Starting a family: you are its only member.
+      allow create: if signedIn()
+        && request.resource.data.members == [request.auth.uid];
+
+      // Members can change the family, e.g. remove a parent. They can't
+      // leave it with no members.
+      allow update: if signedIn()
+        && request.auth.uid in resource.data.members
+        && request.resource.data.members.size() > 0;
+
+      // Joining with an invite code: only adds yourself, and only with a
+      // valid, unused, unexpired code for this family.
+      allow update: if signedIn()
+        && !(request.auth.uid in resource.data.members)
+        && request.resource.data.members.hasAll(resource.data.members)
+        && request.resource.data.members.removeAll(resource.data.members).hasOnly([request.auth.uid])
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['members', 'memberNames', 'joinCode'])
+        && validInvite(request.resource.data.joinCode, fid);
+
+      // Kids, prizes and history. `{sub}` makes this match only documents
+      // *under* the family, never the family document itself.
+      // The last parent deleting their account removes the family.
+      allow delete: if signedIn() && resource.data.members == [request.auth.uid];
+
+      match /{sub}/{document=**} {
+        allow read, write: if isMember(fid);
+      }
+    }
+
+    // The code is for this family, was unused and unexpired before this
+    // request, and the same request marks it used by the joining parent.
+    function validInvite(code, fid) {
+      let before = get(/databases/$(database)/documents/invites/$(code)).data;
+      let after = getAfter(/databases/$(database)/documents/invites/$(code)).data;
+      return before.familyId == fid
+        && before.used == false
+        && before.expiresAt > request.time
+        && after.used == true
+        && after.usedBy == request.auth.uid;
+    }
+
+    // Short-lived, single-use invite codes. Anyone signed in can look up a
+    // code they know, but nobody can list codes.
+    match /invites/{code} {
+      allow get: if signedIn();
+      allow create: if isMember(request.resource.data.familyId)
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.used == false
+        && request.resource.data.expiresAt < request.time + duration.value(2, 'd');
+      // Using a code marks it used, once, by the parent joining.
+      allow update: if signedIn()
+        && resource.data.used == false
+        && resource.data.expiresAt > request.time
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['used', 'usedBy'])
+        && request.resource.data.used == true
+        && request.resource.data.usedBy == request.auth.uid;
+      allow delete: if isMember(resource.data.familyId);
+    }
+
+    // Error reports from the app. Write-only: anyone signed in can add a
+    // small, well-formed report about themselves; nobody can read them
+    // from the app (read them in the Firebase console).
+    match /errors/{id} {
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['message', 'stack', 'where', 'url', 'ua', 'version', 'lang', 'at', 'uid', 'expireAt'])
+        && request.resource.data.expireAt is timestamp
+        && request.resource.data.expireAt < request.time + duration.value(91, 'd')
+        && request.resource.data.message is string && request.resource.data.message.size() <= 1000
+        && request.resource.data.stack is string && request.resource.data.stack.size() <= 4000
+        && request.resource.data.where is string && request.resource.data.where.size() <= 100
+        && request.resource.data.url is string && request.resource.data.url.size() <= 300
+        && request.resource.data.ua is string && request.resource.data.ua.size() <= 300;
+    }
+
+    // Data from before families existed. Read once to move it into the
+    // parent's family; kept so nothing is lost.
+    match /parents/{uid}/{document=**} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+  }
+}

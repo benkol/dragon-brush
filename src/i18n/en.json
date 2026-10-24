@@ -1,0 +1,597 @@
+{
+  "app": { "title": "Dragon Brush" },
+  "holiday": {
+    "halloween": "Happy Halloween!",
+    "hanukkah": "Happy Hanukkah!",
+    "purim": "Happy Purim!",
+    "passover": "Happy Passover!",
+    "roshhashana": "Shana Tova!",
+    "sukkot": "Happy Sukkot!",
+    "tubishvat": "Happy Tu BiShvat!",
+    "independence": "Happy Independence Day!",
+    "lagbaomer": "Happy Lag BaOmer!",
+    "shavuot": "Happy Shavuot!",
+    "newyear": "Happy New Year!",
+    "oralhealth": "It's World Oral Health Day!",
+    "double": "Double points today! 🎉"
+  },
+  "holidayName": {
+    "halloween": "Halloween",
+    "hanukkah": "Hanukkah",
+    "purim": "Purim",
+    "passover": "Passover",
+    "roshhashana": "Rosh Hashanah",
+    "sukkot": "Sukkot",
+    "tubishvat": "Tu BiShvat",
+    "independence": "Independence Day",
+    "lagbaomer": "Lag BaOmer",
+    "shavuot": "Shavuot",
+    "newyear": "New Year's",
+    "oralhealth": "World Oral Health Day"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "link": "Privacy",
+    "short": "The camera picture never leaves your phone. Nothing is recorded or uploaded.",
+    "recaptcha": "This app is protected by reCAPTCHA; the Google Privacy Policy and Terms of Service apply.",
+    "updated": "Last updated October 2026.",
+    "camera": {
+      "title": "📷 The camera",
+      "points": [
+        "The front camera is used only while brushing, to follow your kid's head and mouth.",
+        "The picture is processed on your phone, frame by frame, and thrown away right after. No photos or videos are saved, and none are sent anywhere.",
+        "The face-tracking program runs on the phone. The first time, it may be downloaded from Google's servers; only the program file is downloaded, no pictures are sent.",
+        "You can always choose \"Play without the camera\"."
+      ]
+    },
+    "stored": {
+      "title": "💾 What we save",
+      "points": [
+        "Your parent account: your name, email and how you sign in (Google or email).",
+        "Each kid's first name, favorite color, birthday (only if you add it) and difficulty.",
+        "Brushing results: times, points, streaks, stickers, items and which parent's phone was used or who logged a brush.",
+        "Prizes you create and when they were given, and who is in your family.",
+        "This is stored with Google Firebase, Google's service for apps."
+      ]
+    },
+    "who": {
+      "title": "👨‍👩‍👧 Who can see it",
+      "points": [
+        "Only the parents in your family. Another parent joins only with a one-time invite code you share.",
+        "Kids don't have accounts; a parent signs in on the phone."
+      ]
+    },
+    "errors": {
+      "title": "🐞 Error reports",
+      "points": [
+        "If something breaks, the app sends a short report: the error, which screen, the phone and browser type, app version and language, and a random account number.",
+        "Reports never include names, birthdays or brushing data, and are deleted automatically after 90 days."
+      ]
+    },
+    "notDone": {
+      "title": "🚫 What we don't do",
+      "points": [
+        "No ads, no tracking or analytics, no selling or sharing of data.",
+        "No contact with kids: no chat, no messages, no strangers."
+      ]
+    },
+    "google": {
+      "title": "🌐 Other services",
+      "points": [
+        "Fonts come from Google Fonts, and reCAPTCHA (Google) quietly checks that requests come from the real app, to keep the data safe. Both see your phone's internet address, like any website.",
+        "Voices were recorded ahead of time; nothing you say is listened to. The app doesn't use the microphone."
+      ]
+    },
+    "device": {
+      "title": "📱 On this phone",
+      "points": [
+        "Some settings stay only on the phone: language, spoken instructions and the tuning helper. In demo mode, everything stays on the phone."
+      ]
+    },
+    "delete": {
+      "title": "🗑️ Deleting data",
+      "points": [
+        "Grown-ups → Edit → Delete removes a kid and their whole brushing history.",
+        "Grown-ups → \"Delete my account and data\" deletes your account. If you're the family's only parent, all the family's data is deleted too; if another parent shares the family, the kids stay with them."
+      ]
+    },
+    "kids": {
+      "title": "🧒 For kids",
+      "points": [
+        "The app is meant to be used with a parent. Parents create the account and decide what's saved."
+      ]
+    }
+  },
+  "deleteAccount": {
+    "open": "Delete my account and data",
+    "title": "Delete your account?",
+    "alone": "This deletes your account and all of your family's data: kids, brushing history, points, items and prizes. It can't be undone.",
+    "shared": "This deletes your account. The kids and their history stay with {{names}}. It can't be undone.",
+    "google": "You'll be asked to sign in with Google once more to confirm.",
+    "sure": "Yes, delete it for good",
+    "confirm": "Delete forever",
+    "deleting": "Deleting…",
+    "wrongPassword": "That password isn't right."
+  },
+  "crash": {
+    "title": "Oops! The dragon tripped.",
+    "body": "Something went wrong on this screen. We've been told about it.",
+    "reload": "Try again",
+    "home": "Go to the start"
+  },
+  "history": {
+    "open": "Brushing history",
+    "title": "{{name}}'s brushing",
+    "prev": "Previous month",
+    "next": "Next month",
+    "brushes": "{{count}} brushes",
+    "fullDays": "{{count}} full days",
+    "logged": "{{count}} logged",
+    "none": "No brushes this day.",
+    "kind": {
+      "app": "In the app",
+      "noCamera": "App, no camera",
+      "manual": "Logged by a parent"
+    },
+    "loggedBy": "Logged by {{name}}",
+    "withParent": "With {{name}}'s phone",
+    "byUnknown": "Before parent names were saved",
+    "noPoints": "No points",
+    "noPointsShort": "No points",
+    "stopped": "Stopped early"
+  },
+  "moments": {
+    "label": "Special moments",
+    "tooth": "Lost a tooth",
+    "dentist": "Dentist visit",
+    "toothFairyConfirm": "Did {{name}} lose a tooth? The tooth fairy will leave a surprise in the app.",
+    "dentistConfirm": "Did {{name}} visit the dentist? They'll get a bravery chest.",
+    "toothFairyTooSoon": "A tooth was already logged in the last 12 hours.",
+    "dentistTooSoon": "A dentist visit was already logged this month.",
+    "done": "A surprise is waiting for {{name}}! 🎁"
+  },
+  "surprise": {
+    "title": "{{name}}, something special arrived!",
+    "open": "Open it!",
+    "toothFairy": "The Tooth Fairy visited you!",
+    "toothFairyText": "She left you a treasure chest for your tooth.",
+    "wings": "She left a treasure chest and sparkly fairy wings for your dragon!",
+    "dentist": "Brave at the dentist!",
+    "dentistText": "You were so brave! Here's a treasure chest.",
+    "yay": "Yay!"
+  },
+  "common": {
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "done": "Done",
+    "edit": "Edit",
+    "pts": "{{count}} pts",
+    "loading": "Loading…",
+    "language": "עברית",
+    "error": "Something went wrong. Please try again."
+  },
+  "login": {
+    "tagline": "Brush teeth with a fire-breathing dragon!",
+    "google": "Continue with Google",
+    "or": "or",
+    "name": "Your name",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "toSignUp": "New here? Create an account",
+    "toSignIn": "Already have an account? Sign in",
+    "demoNote": "Demo mode: no Firebase project is set up, so progress is saved on this device only.",
+    "demoStart": "Start",
+    "parentOnly": "For grown-ups: sign in to save your kids' progress."
+  },
+  "kids": {
+    "title": "Who's brushing?",
+    "add": "Add a kid",
+    "empty": "Add your first little dragon tamer!",
+    "parentArea": "Grown-ups",
+    "today": "Today {{count}}/2"
+  },
+  "kidForm": {
+    "addTitle": "Add a kid",
+    "editTitle": "Edit kid",
+    "name": "Name",
+    "color": "Favorite color",
+    "birthday": "Birthday",
+    "optional": "optional, for a birthday surprise",
+    "deleteConfirm": "Delete {{name}} and all their progress?"
+  },
+  "kidHome": {
+    "brush": "Brush!",
+    "shop": "Shop",
+    "wardrobe": "Dress up",
+    "stickers": "Stickers",
+    "rewards": "Prizes",
+    "egg": "Dragon egg",
+    "eggHint": "Brush morning and night for {{count}} more days to hatch it!",
+    "eggDone": "You've hatched every egg!",
+    "level": "Level {{level}}",
+    "streak": "Streak",
+    "shields": "Shields",
+    "maxToday": "Both brushes done today! See you tomorrow 🌙",
+    "nextAt": "The next brush earns points after {{time}}",
+    "streakHint": "Brush twice a day to grow your streak!",
+    "birthday": "Happy birthday, {{name}}! 🎉",
+    "birthdayGift": "Brush this week to open your birthday present!",
+    "birthdayGot": "Enjoy your birthday present!"
+  },
+  "brush": {
+    "start": "Tap to start",
+    "startHint": "Prop the phone up so the camera sees your face. Open wide to breathe fire!",
+    "camLoading": "Waking up the dragon…",
+    "camDenied": "We need the camera",
+    "camDeniedHelp": "The dragon copies your face using the front camera. Nothing is recorded or sent anywhere. Allow camera access in your browser settings and try again.",
+    "tryAgain": "Try again",
+    "findFace": "Show me your face!",
+    "lookStraight": "Look straight at me…",
+    "where": "Where are you?",
+    "fartherHint": "Hold the phone further away",
+    "noCamera": "Play without the camera",
+    "autoOn": "No camera: the dragon aims by itself. Keep brushing!",
+    "aimHere": "Open wide and aim here!",
+    "quit": "Stop",
+    "quitTitle": "Stop brushing?",
+    "quitBody": "This brush won't earn points unless you finish it.",
+    "keepGoing": "Keep brushing",
+    "finishLater": "Stop for now",
+    "saving": "Saving…",
+    "debug": "Debug: move to aim, hold space or press to open mouth, F hides the face"
+  },
+  "summary": {
+    "title": "Sparkly clean!",
+    "total": "Total",
+    "streak": "Streak: {{count}} days",
+    "newStickers": "New stickers!",
+    "hatched": "Your egg hatched! Meet {{name}}!",
+    "levelUp": "{{name}} reached level {{level}}!",
+    "wings": "Look, your dragon grew wings!",
+    "shieldUsed": "Your shield saved your streak! 🛡️",
+    "shieldEarned": "You earned a streak shield! 🛡️",
+    "goldUnlocked": "30 days! The Golden Dragon is yours! 👑",
+    "weekly": "You beat this week's challenge!",
+    "birthday": "Happy birthday! Here's a birthday treasure chest!",
+    "birthdayHat": "Happy birthday! You got a birthday hat and a treasure chest!",
+    "anniversary": "{{count}} years of brushing with your dragon! Here's a treasure chest!",
+    "anniversaryCake": "One whole year of brushing! Your dragon got a party cake to grill!",
+    "holiday": "{{holiday}}: double points today!",
+    "notCounted": {
+      "daily_cap": "Great job! You already earned today's points. Come back tomorrow!",
+      "too_soon": "Great job! Points come again in the evening.",
+      "incomplete": "Finish all four next time to earn points!"
+    }
+  },
+  "bonus": {
+    "base": "Brushed!",
+    "steady": "Steady aim ×{{count}}",
+    "second_brush": "Second brush today",
+    "multiplier": "Streak bonus ×{{mult}}",
+    "milestone": "{{days}}-day treasure chest!",
+    "perfect_week": "Perfect week!",
+    "weekly": "Weekly challenge chest!",
+    "birthday": "Birthday chest!",
+    "anniversary": "Brushing anniversary chest!",
+    "holiday": "$t(holidayName.{{holiday}}) double points!"
+  },
+  "challenge": {
+    "title": "This week's challenge",
+    "evenings": "Brush {{count}} evenings this week",
+    "mornings": "Brush {{count}} mornings this week",
+    "fullDays": "Brush morning and night on {{count}} days",
+    "steady": "Get steady aim on all 4 targets {{count}} times",
+    "total": "Brush {{count}} times this week",
+    "progress": "{{have}} of {{goal}} · bonus chest ⭐ {{points}} · {{left}}",
+    "daysLeft": "{{days}} days left",
+    "lastDay": "last day!",
+    "done": "Done! You won ⭐ {{points}}. New challenge on Sunday."
+  },
+  "season": {
+    "halloween": "Halloween",
+    "hanukkah": "Hanukkah",
+    "purim": "Purim",
+    "passover": "Passover",
+    "roshhashana": "Rosh Hashanah",
+    "sukkot": "Sukkot",
+    "tubishvat": "Tu BiShvat",
+    "independence": "Independence Day",
+    "lagbaomer": "Lag BaOmer",
+    "shavuot": "Shavuot",
+    "summer": "Summer",
+    "winter": "Winter",
+    "newyear": "New Year's"
+  },
+  "shop": {
+    "title": "Dragon Shop",
+    "buy": "Buy",
+    "owned": "Owned",
+    "needStreak": "{{count}}-day streak",
+    "fromEgg": "Hatches from an egg",
+    "notEnough": "Keep brushing to get {{count}} more points!",
+    "confirm": "Buy {{name}} for {{price}} points?",
+    "bought": "It's yours!",
+    "shieldsOwned": "You have {{count}}",
+    "birthdayGift": "Birthday gift",
+    "toothFairyGift": "From the tooth fairy",
+    "anniversaryGift": "1-year anniversary",
+    "special": "Special",
+    "specialHint": "{{holiday}} treats, only for a short time! Once you buy one, it's yours forever.",
+    "limited": "Limited"
+  },
+  "wardrobe": {
+    "title": "Dress up",
+    "wearing": "Wearing"
+  },
+  "stickers": {
+    "title": "Sticker album",
+    "progress": "{{have}} of {{total}}"
+  },
+  "rewards": {
+    "title": "Prizes",
+    "empty": "No prizes yet. Ask a grown-up to add some!",
+    "redeem": "Get it",
+    "confirm": "Spend {{price}} points on {{title}}?",
+    "redeemed": "Show this to a grown-up! 🎉"
+  },
+  "parent": {
+    "title": "Grown-ups",
+    "signedInAs": "Signed in as {{name}}",
+    "signOut": "Sign out",
+    "kids": "Kids",
+    "rewards": "Real-life prizes",
+    "rewardsHelp": "Create prizes your kids can buy with points, like an ice cream trip or an extra story.",
+    "rewardTitle": "Prize",
+    "rewardEmoji": "Emoji",
+    "rewardPrice": "Points",
+    "add": "Add",
+    "toGive": "To give",
+    "markGiven": "Given ✓",
+    "noneToGive": "Nothing waiting.",
+    "logBrush": "Log",
+    "logTitle": "Brushed without the app",
+    "logHelp": "Did {{name}} brush on their own or with someone else? Log it so they keep their points and streak.",
+    "logTime": "When (today)",
+    "logSave": "Add brush",
+    "logged": "+{{points}} points for {{name}}! 🎉",
+    "logFuture": "Pick a time that already happened today.",
+    "logNot": {
+      "daily_cap": "{{name}} already has 2 brushes today.",
+      "too_soon": "Brushes need to be at least 6 hours apart."
+    },
+    "howTitle": "How points work",
+    "how": [
+      "10 points for every finished brush (up to 2 a day, at least 6 hours apart).",
+      "+2 for each target hit without wandering off more than 3 times.",
+      "+5 for the second brush of the day.",
+      "A day with 2 brushes grows the streak. A 3+ day streak gives ×1.5 points, 7+ days gives ×2.",
+      "Treasure chests at 3, 7, 14, 30 and 100 days. +100 for a perfect week.",
+      "A shield (shop, or free at 14 days) saves the streak after one missed day.",
+      "Every 7 full days hatches a surprise baby dragon. 30 days unlocks the Golden Dragon.",
+      "Brushed without the app? Tap Log next to the kid's name. It counts like a regular brush, just without the steady-aim bonus.",
+      "Each week (Sunday to Saturday) has a mini-challenge, like brushing 5 evenings, for a bonus chest of 75–100.",
+      "Holiday items are in the shop only around the holiday (Jewish holidays follow the Hebrew calendar), plus summer and winter treats. On a holiday the dragon dresses up for the day.",
+      "Double points on the first day of each holiday, and on World Oral Health Day (March 20).",
+      "Add a birthday in Edit: the first brush of the birthday week opens a 50-point chest, and a birthday hat the first time.",
+      "Lost a tooth or visited the dentist? Tap the button next to the kid: they'll find a surprise chest (and tooth-fairy wings for the first tooth).",
+      "Every year of brushing with the app brings a 100-point anniversary chest, and a party cake the first year."
+    ]
+  },
+  "voiceSettings": {
+    "toggle": "Spoken instructions",
+    "help": "On this phone. The dragon says what to do (countdown, where to aim, cheers), in the app's language."
+  },
+  "voice": {
+    "count3": "Three!",
+    "count2": "Two!",
+    "count1": "One!",
+    "go": "Go! Open wide, little dragon!",
+    "findFace": "Show me your face!",
+    "where": "Where are you?",
+    "farther": "Hold the phone a little further away.",
+    "aimHere": "Open wide and aim at the target!",
+    "corner_TR": "Look up, to the right!",
+    "corner_TL": "Now up, to the left!",
+    "corner_BL": "Now down, to the left!",
+    "corner_BR": "Last one! Down, to the right!",
+    "halfway": "Halfway there, keep going!",
+    "yum1": "Yum yum!",
+    "yum2": "Crunchy! Delicious!",
+    "yuck": "Eww, broccoli! But good job!",
+    "celebrate": "Hooray! Your teeth are sparkly clean!",
+    "noCamera": "No camera? No problem! The dragon will aim by itself. Keep brushing!",
+    "hol_halloween": "Happy Halloween, spooky little dragon!",
+    "hol_hanukkah": "Happy Hanukkah! Your teeth shine like the candles!",
+    "hol_purim": "Happy Purim! What a great costume!",
+    "hol_passover": "Happy Passover!",
+    "hol_roshhashana": "Shana Tova! A sweet new year!",
+    "hol_sukkot": "Happy Sukkot!",
+    "hol_tubishvat": "Happy Tu BiShvat! Happy birthday, trees!",
+    "hol_independence": "Happy Independence Day!",
+    "hol_lagbaomer": "Happy Lag BaOmer! Best bonfire ever!",
+    "hol_shavuot": "Happy Shavuot!",
+    "hol_newyear": "Happy New Year!",
+    "hol_oralhealth": "It's World Oral Health Day! Double points for you!",
+    "birthday": "Happy birthday! Your teeth are sparkly for your special day!",
+    "toothFairy": "The Tooth Fairy visited you! Look what she left!",
+    "dentist": "You were so brave at the dentist! Here's a treasure chest!"
+  },
+  "difficulty": {
+    "label": "Difficulty",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "help": "Easy: a small nod reaches the corners and a little \"o\" breathes fire, with big targets and forgiving pauses. Hard: big head tilts and a wide-open mouth."
+  },
+  "tuning": {
+    "toggle": "Show tuning helpers while brushing",
+    "toggleHelp": "On this phone only. Shows where the fire lands, how far the head turns compared with what's needed, and how open the mouth is. Use it to pick the right difficulty.",
+    "turn": "Turn",
+    "tilt": "Tilt",
+    "mouth": "Mouth"
+  },
+  "family": {
+    "title": "Family",
+    "help": "Parents in the family share the same kids, points, streaks and prizes. Each signs in with their own account.",
+    "demo": "Sharing with another parent needs an account, so it isn't available in demo mode.",
+    "you": "you",
+    "parent": "Parent",
+    "invite": "Invite a parent",
+    "inviteCode": "Invite code",
+    "inviteExpires": "Works once, until {{time}}",
+    "share": "Send invite",
+    "shareText": "Join our family on Dragon Brush! Open the link, sign in, and use code {{code}} under Grown-ups → Family.",
+    "copied": "Invite copied, paste it in a message.",
+    "joinTitle": "Join another family",
+    "joinHelp": "Got an invite code from the other parent? Enter it here.",
+    "join": "Join",
+    "joinSwitchWarning": "You'll see the other family's kids instead of your current ones. Your current kids stay saved and come back if you leave. Join?",
+    "joined": "You're in! 🎉",
+    "remove": "Remove",
+    "removeConfirm": "Remove {{name}} from the family? They'll no longer see the kids.",
+    "leave": "Leave",
+    "leaveConfirm": "Leave this family? You'll go back to your own kids.",
+    "errors": {
+      "invalid": "That code doesn't exist. Check it and try again.",
+      "expired": "That code has expired. Ask for a new one.",
+      "used": "That code was already used. Ask for a new one.",
+      "already_member": "You're already in this family."
+    }
+  },
+  "cat": {
+    "dragon": "Dragons",
+    "hat": "Hats",
+    "glasses": "Glasses",
+    "necklace": "Necklaces",
+    "fire": "Fire",
+    "food": "Food",
+    "bg": "Places",
+    "shield": "Shields"
+  },
+  "achievements": {
+    "first_brush": { "name": "First brush", "desc": "Finish your first brush" },
+    "early_bird": { "name": "Early bird", "desc": "Brush before 8 in the morning" },
+    "night_owl": { "name": "Night owl", "desc": "Brush after 7 in the evening" },
+    "steady_aim": { "name": "Steady aim", "desc": "Hit all four targets without wandering" },
+    "ten_brushes": { "name": "Ten brushes", "desc": "Brush 10 times" },
+    "streak_3": { "name": "On fire", "desc": "Reach a 3-day streak" },
+    "streak_7": { "name": "Week warrior", "desc": "Reach a 7-day streak" },
+    "perfect_week": { "name": "Perfect week", "desc": "Brush twice a day for 7 days" },
+    "fifty_brushes": { "name": "Fifty!", "desc": "Brush 50 times" },
+    "egg_hatcher": { "name": "Egg hatcher", "desc": "Hatch a dragon egg" },
+    "weekly_hero": { "name": "Challenge champ", "desc": "Beat a weekly challenge" },
+    "holiday_spirit": { "name": "Holiday spirit", "desc": "Get a special holiday item" },
+    "birthday": { "name": "Birthday dragon", "desc": "Brush on your birthday week" },
+    "tooth_fairy": { "name": "Tooth fairy friend", "desc": "Lose a tooth" },
+    "brave_dentist": { "name": "Brave at the dentist", "desc": "Visit the dentist" },
+    "anniversary": { "name": "One whole year!", "desc": "Brush for a year with your dragon" },
+    "shopper": { "name": "Shopper", "desc": "Buy something in the shop" },
+    "fashionista": { "name": "Fashion dragon", "desc": "Wear a hat, glasses and a necklace" },
+    "fire_master": { "name": "Fire master", "desc": "Own 3 fire colors" },
+    "collector": { "name": "Collector", "desc": "Own 3 dragons" },
+    "level_5": { "name": "Wings!", "desc": "Grow a dragon to level 5" },
+    "streak_30": { "name": "Dragon master", "desc": "Reach a 30-day streak" },
+    "hundred_brushes": { "name": "One hundred", "desc": "Brush 100 times" }
+  },
+  "items": {
+    "dragon": {
+      "ember": "Ember",
+      "frost": "Frost",
+      "leafy": "Leafy",
+      "sparkle": "Sparkle",
+      "shadow": "Shadow",
+      "gold": "Golden Dragon",
+      "pip": "Pip",
+      "mochi": "Mochi",
+      "bubbles": "Bubbles"
+    },
+    "hat": {
+      "none": "No hat",
+      "party": "Party hat",
+      "cap": "Baseball cap",
+      "chef": "Chef hat",
+      "pirate": "Pirate hat",
+      "wizard": "Wizard hat",
+      "viking": "Viking helmet",
+      "crown": "Crown",
+      "witch": "Witch hat",
+      "dreidel": "Dreidel hat",
+      "birthday": "Birthday hat",
+      "flag": "Simchat Torah flag",
+      "leaves": "Leafy crown",
+      "flowers": "Flower crown",
+      "hammer": "Squeaky hammer",
+      "beanie": "Winter beanie"
+    },
+    "fire": {
+      "classic": "Classic fire",
+      "blue": "Blue fire",
+      "green": "Green fire",
+      "purple": "Purple fire",
+      "sparkles": "Sparkle fire",
+      "rainbow": "Rainbow fire",
+      "bonfire": "Bonfire",
+      "bluewhite": "Blue-and-white fire",
+      "leafy": "Leafy fire",
+      "fireworks": "Fireworks"
+    },
+    "glasses": {
+      "none": "No glasses",
+      "round": "Round glasses",
+      "sun": "Sunglasses",
+      "heart": "Heart glasses",
+      "star": "Star glasses",
+      "monocle": "Monocle",
+      "mask": "Purim mask",
+      "newyear": "New Year glasses"
+    },
+    "necklace": {
+      "none": "Nothing",
+      "bowtie": "Bow tie",
+      "scarf": "Cozy scarf",
+      "lei": "Flower lei",
+      "medal": "Gold medal",
+      "chain": "Gold chain",
+      "flag": "Flag cape",
+      "fairywings": "Tooth fairy wings"
+    },
+    "food": {
+      "marshmallow": "Marshmallow",
+      "sausage": "Sausage",
+      "corn": "Corn",
+      "apple": "Apple",
+      "smore": "S'more",
+      "pizza": "Pizza",
+      "broccoli": "Broccoli",
+      "pumpkin": "Pumpkin",
+      "sufganiya": "Sufganiya",
+      "hamantash": "Hamantash",
+      "matzah": "Matzah",
+      "pomegranate": "Pomegranate",
+      "etrog": "Etrog",
+      "driedfruit": "Dried fruit",
+      "kebab": "Kebab",
+      "potato": "Potato in foil",
+      "blintz": "Cheese blintz",
+      "icecream": "Ice cream",
+      "watermelon": "Watermelon",
+      "snowball": "Snowball",
+      "cake": "Party cake"
+    },
+    "bg": {
+      "camera": "Camera",
+      "castle": "Castle",
+      "volcano": "Volcano",
+      "space": "Space",
+      "candy": "Candy land",
+      "campfire": "Campfire",
+      "sukkah": "Sukkah",
+      "snow": "Snowy day"
+    },
+    "shield": "Streak shield"
+  }
+}

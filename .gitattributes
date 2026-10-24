@@ -1,0 +1,6 @@
+# Keep Unix line endings in the repository and working copy on every OS.
+* text=auto eol=lf
+
+*.mp3 binary
+*.png binary
+*.wasm binary
