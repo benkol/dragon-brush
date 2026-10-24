@@ -41,6 +41,7 @@ function BrushGame({ kid: initialKid }: { kid: Kid }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const aimRef = useRef<HTMLDivElement>(null);
   const runnerRef = useRef<GameRunner | null>(null);
   const sourceRef = useRef<FaceSource | null>(null);
   const [stage, setStage] = useState<Stage>('intro');
@@ -127,6 +128,20 @@ function BrushGame({ kid: initialKid }: { kid: Kid }) {
         debug: DEBUG,
         tuning: tuningEnabled(),
         onHud: setHud,
+        // Easy mode: move the "where the fire lands" marker every frame,
+        // directly, so it follows the head smoothly.
+        onAim: (p, fireOn) => {
+          const el = aimRef.current;
+          const root = rootRef.current;
+          if (!el || !root) return;
+          el.hidden = !p;
+          if (!p) return;
+          const m = 24;
+          const x = Math.min(root.clientWidth - m, Math.max(m, p.x));
+          const y = Math.min(root.clientHeight - m, Math.max(m, p.y));
+          el.style.transform = `translate(${x}px, ${y}px)`;
+          el.classList.toggle('firing', fireOn);
+        },
         onFinished,
       });
       runnerRef.current = runner;
@@ -172,6 +187,9 @@ function BrushGame({ kid: initialKid }: { kid: Kid }) {
     <div ref={rootRef} className={`brush ${bg !== 'camera' ? `bg-${bg} has-bg` : 'cam-bg'} ${DEBUG ? 'debug' : ''} ${noCamera ? 'no-cam' : ''}`}>
       <video ref={videoRef} className="cam" playsInline muted />
       <canvas ref={canvasRef} className="stage3d" />
+      <div ref={aimRef} className="aim-marker" hidden aria-hidden>
+        <span />
+      </div>
 
       {playing && hud && <Hud hud={hud} onQuit={() => setQuitting(true)} onNoCamera={playWithoutCamera} />}
       {(hud?.phase === 'celebrate' || stage === 'saving' || stage === 'summary') && <Confetti count={120} />}

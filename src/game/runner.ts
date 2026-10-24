@@ -56,6 +56,11 @@ export interface RunnerOptions {
   /** Said after the celebration, e.g. "Happy Hanukkah!". */
   greeting?: VoiceLine;
   onHud: (h: HudState) => void;
+  /**
+   * Every frame on difficulties with an aim marker: where the fire lands
+   * (null to hide it) and whether the fire is on.
+   */
+  onAim?: (p: Point | null, fireOn: boolean) => void;
   onFinished: (r: SessionResult) => void;
 }
 
@@ -201,6 +206,10 @@ export class GameRunner {
     const aim = aimPoint(face, this.neutral, this.size, d);
     const corner = currentCorner(s0);
     const hit = this.fireOn && s0.phase === 'aiming' && isHit(aim, corner, this.size, d);
+    // The tuning readout has its own dot, and without the camera the dragon aims by itself.
+    if (d.aimMarker && !this.o.tuning && !this.noCamera) {
+      this.o.onAim?.(s0.phase === 'aiming' && face.visible && !this.paused ? aim : null, this.fireOn);
+    }
 
     const { state, events } = step(s0, { dt, hit, faceVisible: face.visible, paused: this.paused }, cfg);
     this.state = state;

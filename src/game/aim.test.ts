@@ -70,6 +70,10 @@ describe('aim', () => {
     expect(fireState(0.2, false, DIFFICULTY.hard)).toBe(false);
   });
 
+  it('only easy shows the aim marker', () => {
+    expect(DIFFICULTIES.filter((d) => DIFFICULTY[d].aimMarker)).toEqual(['easy']);
+  });
+
   it('easy targets are bigger, and unknown values fall back to medium', () => {
     expect(targetRadius(size, DIFFICULTY.easy)).toBeGreaterThan(targetRadius(size, DIFFICULTY.hard));
     expect(settingsFor(undefined)).toBe(DIFFICULTY.medium);

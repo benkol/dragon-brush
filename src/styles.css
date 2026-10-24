@@ -1437,6 +1437,47 @@ p {
   display: none;
 }
 
+/* Easy mode: where the fire lands. A dashed ring while the mouth is closed
+   ("open wide and it goes here"), a glowing flame-colored dot while firing. */
+.aim-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  pointer-events: none;
+  will-change: transform;
+}
+.aim-marker[hidden] {
+  display: none;
+}
+.aim-marker span {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  border: 4px dashed rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.aim-marker span::after {
+  content: '';
+  position: absolute;
+  inset: 13px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+}
+.aim-marker.firing span {
+  border-style: solid;
+  border-color: #ffd23f;
+  background: rgba(255, 140, 26, 0.45);
+  box-shadow: 0 0 18px 6px rgba(255, 140, 26, 0.7);
+  transform: scale(1.15);
+}
+.aim-marker.firing span::after {
+  background: #fff6c2;
+}
+
 /* Tuning readout (parent helper while brushing). */
 .tuning-aim {
   position: absolute;
