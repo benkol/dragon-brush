@@ -50,7 +50,7 @@ export default function HistoryScreen() {
 
   return (
     <Screen className="history">
-      <TopBar back="/parent" title={t('history.title', { name: kid.name })} />
+      <TopBar back="/parent?tab=kids" title={t('history.title', { name: kid.name })} />
 
       <div className="card">
         <div className="month-nav">

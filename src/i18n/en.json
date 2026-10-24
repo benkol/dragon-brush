@@ -119,8 +119,16 @@
     "reload": "Try again",
     "home": "Go to the start"
   },
+  "parentTabs": {
+    "account": "Account",
+    "kids": "Kids",
+    "family": "Family",
+    "prizes": "Prizes",
+    "points": "Points"
+  },
   "history": {
     "open": "Brushing history",
+    "short": "History",
     "title": "{{name}}'s brushing",
     "prev": "Previous month",
     "next": "Next month",
@@ -349,7 +357,10 @@
     "rewardEmoji": "Emoji",
     "rewardPrice": "Points",
     "add": "Add",
-    "toGive": "To give",
+    "toGive": "Waiting to be given",
+    "toGiveHelp": "Prizes your kids bought with their points. Tap \"Given\" once you've handed one over.",
+    "thisPhone": "This phone",
+    "logBrushFull": "Log a brush",
     "markGiven": "Given ✓",
     "noneToGive": "Nothing waiting.",
     "logBrush": "Log",
@@ -372,7 +383,7 @@
       "Treasure chests at 3, 7, 14, 30 and 100 days. +100 for a perfect week.",
       "A shield (shop, or free at 14 days) saves the streak after one missed day.",
       "Every 7 full days hatches a surprise baby dragon. 30 days unlocks the Golden Dragon.",
-      "Brushed without the app? Tap Log next to the kid's name. It counts like a regular brush, just without the steady-aim bonus.",
+      "Brushed without the app? Kids tab → \"Log a brush\". It counts like a regular brush, just without the steady-aim bonus.",
       "Each week (Sunday to Saturday) has a mini-challenge, like brushing 5 evenings, for a bonus chest of 75–100.",
       "Holiday items are in the shop only around the holiday (Jewish holidays follow the Hebrew calendar), plus summer and winter treats. On a holiday the dragon dresses up for the day.",
       "Double points on the first day of each holiday, and on World Oral Health Day (March 20).",
