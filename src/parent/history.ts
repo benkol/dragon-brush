@@ -2,9 +2,9 @@
 import type { SessionRecord } from '../data/types';
 import { dayKey } from '../rewards/dates';
 
-export type BrushKind = 'app' | 'noCamera' | 'manual';
+export type BrushKind = 'app' | 'solo' | 'noCamera' | 'manual';
 
-export const kindOf = (s: SessionRecord): BrushKind => (s.manual ? 'manual' : s.noCamera ? 'noCamera' : 'app');
+export const kindOf = (s: SessionRecord): BrushKind => (s.manual ? 'manual' : s.noCamera ? 'noCamera' : s.solo ? 'solo' : 'app');
 
 /** Local-time [start, end) of a month (month is 0-based). */
 export function monthRange(year: number, month: number): [number, number] {

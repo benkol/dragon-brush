@@ -66,7 +66,7 @@ export interface RunnerOptions {
 
 const HUD_MS = 66;
 /** No face this long: say "Where are you?" (or "Show me your face!" before starting). */
-const SAY_WHERE_AFTER_MS = 1_500;
+export const SAY_WHERE_AFTER_MS = 1_500;
 /** No face this long: suggest holding the phone further away. */
 export const HINT_AFTER_MS = 4_000;
 /** No face this long: offer to play without the camera. */

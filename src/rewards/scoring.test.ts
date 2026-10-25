@@ -210,6 +210,17 @@ describe('brushes without the camera', () => {
   });
 });
 
+describe('brushing by myself', () => {
+  it('earns the same base points and streak, without the steady-aim bonus', () => {
+    const o = applySession(newKidStats(), { ...session(at(1, 7), true, []), solo: true });
+    expect(o.record.counted).toBe(true);
+    expect(o.record.solo).toBe(true);
+    expect(o.record.pointsAwarded).toBe(10);
+    expect(o.newAchievements).not.toContain('steady_aim');
+    expect(applySession(o.stats, { ...session(at(1, 20), true, []), solo: true }).stats.streak).toBe(1);
+  });
+});
+
 describe('purchases', () => {
   it('deducts points and adds the item', () => {
     const k = { ...newKidStats(), points: 100 };

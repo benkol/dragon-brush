@@ -1,4 +1,4 @@
-import type { AppUser, CustomReward, Family, Invite, Kid, KidStats, SessionRecord } from './types';
+import type { AppUser, BrushModes, CustomReward, Family, Invite, Kid, KidStats, SessionRecord } from './types';
 import { newKidStats } from '../rewards/scoring';
 import { DEFAULT_DIFFICULTY, DIFFICULTIES, type Difficulty } from '../game/difficulty';
 import type { ErrorReport } from '../errors';
@@ -45,6 +45,7 @@ export interface Repo {
   editKid(familyId: string, kidId: string, kid: KidProfile): Promise<void>;
   deleteKid(familyId: string, kidId: string): Promise<void>;
   setDifficulty(familyId: string, kidId: string, difficulty: Difficulty): Promise<void>;
+  setBrushModes(familyId: string, kidId: string, modes: BrushModes): Promise<void>;
   /**
    * Reads the latest kid, applies `fn` and writes the new stats (and an
    * optional session record) atomically, so two parents saving at once

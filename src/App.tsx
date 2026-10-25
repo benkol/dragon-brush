@@ -15,6 +15,7 @@ import PrivacyScreen from './PrivacyScreen';
 
 // The game pulls in MediaPipe; load it only when brushing.
 const BrushScreen = lazy(() => import('./game/BrushScreen'));
+const SoloBrushScreen = lazy(() => import('./game/SoloBrushScreen'));
 
 function Splash() {
   return (
@@ -40,6 +41,7 @@ function AppRoutes() {
         <Route path="/" element={<KidsScreen />} />
         <Route path="/kid/:kidId" element={<KidHome />} />
         <Route path="/kid/:kidId/brush" element={<BrushScreen />} />
+        <Route path="/kid/:kidId/brush-solo" element={<SoloBrushScreen />} />
         <Route path="/kid/:kidId/shop" element={<ShopScreen />} />
         <Route path="/kid/:kidId/wardrobe" element={<WardrobeScreen />} />
         <Route path="/kid/:kidId/stickers" element={<StickersScreen />} />

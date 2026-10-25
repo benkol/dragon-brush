@@ -118,6 +118,10 @@ export const localRepo: Repo = {
     db.kids[kidId].difficulty = difficulty;
     save();
   },
+  async setBrushModes(_uid, kidId, brushModes) {
+    db.kids[kidId].brushModes = brushModes;
+    save();
+  },
   async deleteKid(_uid, kidId) {
     delete db.kids[kidId];
     delete db.sessions[kidId];

@@ -27,6 +27,7 @@ export default function KidHome() {
   const holiday = holidayToday(now);
   const outfit = withCostume(kid.equipped, now, kid.birthday);
   const nextAt = today === 1 && kid.lastBrushAt && kid.lastBrushAt + MIN_GAP_MS > now ? kid.lastBrushAt + MIN_GAP_MS : null;
+  const modes = kid.brushModes ?? 'both';
   const time = (ms: number) => new Date(ms).toLocaleTimeString(i18n.language, { hour: 'numeric', minute: '2-digit' });
 
   return (
@@ -59,9 +60,16 @@ export default function KidHome() {
         </div>
       </div>
 
-      <button className="btn btn-brush" onClick={() => nav(`/kid/${kid.id}/brush`)}>
-        🪥 {t('kidHome.brush')}
-      </button>
+      {modes !== 'solo' && (
+        <button className="btn btn-brush" onClick={() => nav(`/kid/${kid.id}/brush`)}>
+          🐲 {t(modes === 'both' ? 'kidHome.brushWithGrownup' : 'kidHome.brush')}
+        </button>
+      )}
+      {modes !== 'game' && (
+        <button className={`btn btn-brush ${modes === 'both' ? 'solo-btn' : ''}`} onClick={() => nav(`/kid/${kid.id}/brush-solo`)}>
+          🪥 {t(modes === 'both' ? 'kidHome.brushSolo' : 'kidHome.brush')}
+        </button>
+      )}
       {today >= MAX_COUNTED_PER_DAY ? (
         <p className="hint">{t('kidHome.maxToday')}</p>
       ) : nextAt ? (

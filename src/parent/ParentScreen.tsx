@@ -7,7 +7,7 @@ import { LangButton, Screen, TopBar, useToast } from '../ui/ui';
 import KidForm from '../kids/KidForm';
 import LogBrushModal from './LogBrushModal';
 import FamilySection from './FamilySection';
-import type { Kid } from '../data/types';
+import { BRUSH_MODES, type Kid } from '../data/types';
 import { DEMO_MODE } from '../config';
 import { DIFFICULTIES } from '../game/difficulty';
 import { setTuningEnabled, tuningEnabled } from '../game/tuningPref';
@@ -176,6 +176,20 @@ function KidsTab({ onToast }: { onToast: (text: string) => void }) {
           </div>
 
           <div className="parent-kid-setting">
+            <span className="muted small">{t('brushModes.label')}</span>
+            <div className="seg" role="radiogroup" aria-label={t('brushModes.label')}>
+              {BRUSH_MODES.map((m) => {
+                const on = (k.brushModes ?? 'both') === m;
+                return (
+                  <button key={m} role="radio" aria-checked={on} className={on ? 'on' : ''} onClick={() => repo.setBrushModes(fid, k.id, m)}>
+                    {t(`brushModes.${m}`)}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="parent-kid-setting">
             <span className="muted small">{t('moments.label')}</span>
             <div className="row">
               <button className="btn btn-small btn-ghost" onClick={() => logMoment(k, 'toothFairy')}>
@@ -189,6 +203,7 @@ function KidsTab({ onToast }: { onToast: (text: string) => void }) {
         </section>
       ))}
       <p className="muted small">{t('difficulty.help')}</p>
+      <p className="muted small">{t('brushModes.help')}</p>
       {editing && <KidForm kid={editing} onClose={() => setEditing(null)} />}
       {logging && <LogBrushModal kid={logging} onClose={() => setLogging(null)} onDone={onToast} />}
     </>

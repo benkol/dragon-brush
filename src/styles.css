@@ -954,6 +954,10 @@ p {
 .cal-legend .noCamera {
   background: #ff8c1a;
 }
+.cal-dots .solo,
+.cal-legend .solo {
+  background: #a26bf2;
+}
 .cal-dots .nopoints,
 .cal-legend .nopoints {
   background: #c9bfb3;
@@ -1697,11 +1701,208 @@ p {
   }
 }
 
+/* Brush by myself ------------------------------------------------------- */
+.btn-brush.solo-btn {
+  background: linear-gradient(180deg, #9a7dff, var(--purple));
+  box-shadow: 0 7px 0 var(--purple-dark), 0 14px 30px rgba(123, 92, 255, 0.3);
+  font-size: 1.4rem;
+  padding: 16px;
+  animation: none;
+}
+.btn-brush.solo-btn:active {
+  box-shadow: 0 3px 0 var(--purple-dark);
+}
+.solo-tips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  font-size: 1.1rem;
+}
+/* Big enough to read from a phone stand. */
+.solo-panel {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: calc(12px + var(--safe-bottom));
+  max-width: 540px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 12px 14px 14px;
+  display: grid;
+  gap: 8px;
+  animation: pop-in 0.35s ease-out;
+}
+.solo-panel.paused {
+  opacity: 0.55;
+}
+.solo .center-msg {
+  top: 38%;
+  white-space: normal;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  text-align: center;
+}
+.solo-panel.spit {
+  justify-items: center;
+  text-align: center;
+  font-size: 1.8rem;
+  padding: 22px;
+}
+.solo-title {
+  display: grid;
+  gap: 2px;
+  text-align: center;
+}
+.solo-title strong {
+  font-size: 1.8rem;
+  color: var(--purple-dark);
+}
+.solo-title span {
+  font-size: 1.3rem;
+}
+.solo-title small {
+  font-size: 1rem;
+  color: var(--primary-dark);
+}
+.solo-pics {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.solo-side {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+.mouth-map,
+.tooth-side {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.tooth-side {
+  max-width: 120px;
+}
+.mouth-map .lip {
+  fill: #ff9fae;
+}
+.mouth-map .mouth-in {
+  fill: #7a1830;
+}
+.mouth-map .gum,
+.tooth-side .gum {
+  fill: #ff8fa3;
+}
+.mouth-map .tongue,
+.tooth-side .tongue {
+  fill: #e85d7a;
+  transition: fill 0.3s;
+}
+.mouth-map .tongue.now,
+.tooth-side .tongue.now {
+  fill: #ffd23f;
+  animation: zone-glow 1.2s ease-in-out infinite;
+}
+.mouth-map .tooth {
+  fill: #fff;
+  stroke: #e9dccd;
+  stroke-width: 2;
+  transition: fill 0.3s;
+}
+.mouth-map .tooth.done {
+  fill: #e8fff1;
+  stroke: var(--green);
+}
+.mouth-map .tooth.now {
+  fill: #ffe57a;
+  stroke: #ffb800;
+  stroke-width: 3;
+  animation: zone-glow 1.2s ease-in-out infinite;
+}
+.mouth-map .done-star {
+  font-size: 30px;
+}
+@keyframes zone-glow {
+  50% {
+    filter: brightness(1.15) drop-shadow(0 0 6px #ffd23f);
+  }
+}
+.tooth-side .tooth-shape {
+  fill: #fff;
+  stroke: #d8cbbb;
+  stroke-width: 2;
+}
+.tooth-side .face {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+.tooth-side .face.now {
+  stroke: #ffb800;
+}
+.tooth-side .side-label {
+  font-size: 20px;
+}
+.brush-head {
+  fill: var(--purple);
+}
+.brush-bristles {
+  fill: #9ee6ff;
+}
+/* Small circles, like the real thing. */
+.brush-wiggle {
+  animation: scrub 0.45s linear infinite;
+}
+@keyframes scrub {
+  0% {
+    transform: translate(3px, 0);
+  }
+  25% {
+    transform: translate(0, 3px);
+  }
+  50% {
+    transform: translate(-3px, 0);
+  }
+  75% {
+    transform: translate(0, -3px);
+  }
+  100% {
+    transform: translate(3px, 0);
+  }
+}
+.step-ring {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+}
+.step-ring svg {
+  position: absolute;
+  inset: 0;
+}
+.step-ring .ring-bg {
+  stroke: var(--line);
+}
+.step-ring span {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--purple-dark);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bob,
   .wobble,
   .btn-brush,
-  .arrow {
+  .arrow,
+  .brush-wiggle {
     animation: none;
   }
 }

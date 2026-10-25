@@ -8,7 +8,7 @@ import type { SessionRecord } from '../data/types';
 import { dayKey } from '../rewards/dates';
 import { groupByDay, kindOf, monthGrid, monthRange, monthSummary } from './history';
 
-const KIND_ICON = { app: '🐲', noCamera: '📷', manual: '✍️' } as const;
+const KIND_ICON = { app: '🐲', solo: '🪥', noCamera: '📷', manual: '✍️' } as const;
 
 /** A calendar of a kid's brushes: in the app or logged by a parent, and by whom. */
 export default function HistoryScreen() {
@@ -102,6 +102,9 @@ export default function HistoryScreen() {
         <div className="cal-legend">
           <span>
             <i className="app" /> {t('history.kind.app')}
+          </span>
+          <span>
+            <i className="solo" /> {t('history.kind.solo')}
           </span>
           <span>
             <i className="noCamera" /> {t('history.kind.noCamera')}

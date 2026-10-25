@@ -139,6 +139,7 @@
     "kind": {
       "app": "In the app",
       "noCamera": "App, no camera",
+      "solo": "App, by myself",
       "manual": "Logged by a parent"
     },
     "loggedBy": "Logged by {{name}}",
@@ -213,6 +214,8 @@
   },
   "kidHome": {
     "brush": "Brush!",
+    "brushSolo": "Brush by myself",
+    "brushWithGrownup": "Brush with a grown-up",
     "shop": "Shop",
     "wardrobe": "Dress up",
     "stickers": "Stickers",
@@ -229,6 +232,29 @@
     "birthday": "Happy birthday, {{name}}! 🎉",
     "birthdayGift": "Brush this week to open your birthday present!",
     "birthdayGot": "Enjoy your birthday present!"
+  },
+  "solo": {
+    "title": "Brush by myself",
+    "startHint": "Stand the phone where you can see it, then brush along with the dragon.",
+    "pea": "A pea of toothpaste",
+    "circles": "Small, gentle circles",
+    "start": "Let's brush!",
+    "zone": {
+      "TR": "Top right",
+      "TL": "Top left",
+      "BL": "Bottom left",
+      "BR": "Bottom right"
+    },
+    "surface": {
+      "outside": "Outside, by your cheek",
+      "inside": "Inside, by your tongue",
+      "tops": "The chewing part",
+      "tongue": "Your tongue"
+    },
+    "tipFront": "Front teeth: hold the brush up and down",
+    "spit": "Spit, don't rinse!",
+    "away": "Come back! The timer is waiting",
+    "autoOn": "Timer running without the camera"
   },
   "brush": {
     "start": "Tap to start",
@@ -429,14 +455,35 @@
     "hol_oralhealth": "It's World Oral Health Day! Double points for you!",
     "birthday": "Happy birthday! Your teeth are sparkly for your special day!",
     "toothFairy": "The Tooth Fairy visited you! Look what she left!",
-    "dentist": "You were so brave at the dentist! Here's a treasure chest!"
+    "dentist": "You were so brave at the dentist! Here's a treasure chest!",
+    "soloIntro": "Let's brush together! A pea of toothpaste, and small, gentle circles.",
+    "soloGo": "Go! Brush along with me!",
+    "soloWhere": "Where did you go? Come back and brush!",
+    "soloNoCamera": "No camera? No problem! Just keep brushing with me.",
+    "zone_TR": "Top teeth, on the right side!",
+    "zone_TL": "Now the top teeth, on the left side!",
+    "zone_BL": "Now the bottom teeth, on the left side!",
+    "zone_BR": "Last one! Bottom teeth, on the right side!",
+    "surf_outside": "Brush the outside, by your cheek. Small circles!",
+    "surf_inside": "Now the inside, by your tongue.",
+    "surf_tops": "Now the chewing part. Scrub back and forth!",
+    "tipFront": "For the front teeth, hold the brush up and down.",
+    "tongue": "Almost done! Brush your tongue, gently.",
+    "spit": "Spit out the toothpaste, but don't rinse with water!"
   },
   "difficulty": {
     "label": "Difficulty",
     "easy": "Easy",
     "medium": "Medium",
     "hard": "Hard",
-    "help": "Easy: a small nod reaches the corners and a little \"o\" breathes fire, with big targets and forgiving pauses. Hard: big head tilts and a wide-open mouth."
+    "help": "Easy: a calm aim that doesn't jump around, a little \"o\" breathes fire, big targets, forgiving pauses and a marker where the fire lands. Hard: a twitchy aim and a wide-open mouth."
+  },
+  "brushModes": {
+    "label": "Brushing",
+    "both": "Both",
+    "game": "With a grown-up",
+    "solo": "By myself",
+    "help": "With a grown-up: the aiming game while you brush. By myself: the dragon guides 2 minutes of brushing, zone by zone. Kids usually need help or a check until about age 7."
   },
   "tuning": {
     "toggle": "Show tuning helpers while brushing",

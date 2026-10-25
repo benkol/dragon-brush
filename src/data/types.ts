@@ -50,12 +50,18 @@ export interface Surprise {
   wings?: boolean;
 }
 
+/** 'game' = aiming with a grown-up, 'solo' = guided brushing by myself. */
+export type BrushModes = 'both' | 'game' | 'solo';
+export const BRUSH_MODES: BrushModes[] = ['both', 'game', 'solo'];
+
 export interface Kid extends KidStats {
   id: string;
   name: string;
   avatarColor: string;
   createdAt: number;
   difficulty: Difficulty;
+  /** Which brushing modes the kid sees (missing = both). */
+  brushModes?: BrushModes;
   /** YYYY-MM-DD; only month and day are used. */
   birthday: string | null;
 }
@@ -75,6 +81,8 @@ export interface SessionResult {
   manual?: boolean;
   /** Finished with "Play without the camera" (no aiming, no steady bonus). */
   noCamera?: boolean;
+  /** Guided "brush by myself" mode (no aiming, no steady bonus). */
+  solo?: boolean;
   /** The parent signed in when the brush was done or logged. */
   by?: { uid: string; name: string };
 }

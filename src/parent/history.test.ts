@@ -41,5 +41,6 @@ describe('history calendar', () => {
     expect(Object.keys(byDay)).toEqual(['2026-10-01', '2026-10-02', '2026-10-03']);
     expect(monthSummary(sessions)).toEqual({ brushes: 3, fullDays: 1, logged: 1, points: 30 });
     expect(sessions.map(kindOf)).toEqual(['app', 'manual', 'noCamera', 'app', 'app']);
+    expect(kindOf({ ...sessions[0], solo: true })).toBe('solo');
   });
 });

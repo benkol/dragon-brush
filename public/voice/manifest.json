@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T17:36:13.665Z",
+  "generatedAt": "2026-10-25T16:51:50.087Z",
   "en": [
     "aimHere",
     "birthday",
@@ -29,11 +29,25 @@
     "hol_sukkot",
     "hol_tubishvat",
     "noCamera",
+    "soloGo",
+    "soloIntro",
+    "soloNoCamera",
+    "soloWhere",
+    "spit",
+    "surf_inside",
+    "surf_outside",
+    "surf_tops",
+    "tipFront",
+    "tongue",
     "toothFairy",
     "where",
     "yuck",
     "yum1",
-    "yum2"
+    "yum2",
+    "zone_BL",
+    "zone_BR",
+    "zone_TL",
+    "zone_TR"
   ],
   "he": [
     "aimHere",
@@ -64,10 +78,24 @@
     "hol_sukkot",
     "hol_tubishvat",
     "noCamera",
+    "soloGo",
+    "soloIntro",
+    "soloNoCamera",
+    "soloWhere",
+    "spit",
+    "surf_inside",
+    "surf_outside",
+    "surf_tops",
+    "tipFront",
+    "tongue",
     "toothFairy",
     "where",
     "yuck",
     "yum1",
-    "yum2"
+    "yum2",
+    "zone_BL",
+    "zone_BR",
+    "zone_TL",
+    "zone_TR"
   ]
 }

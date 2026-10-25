@@ -6,7 +6,26 @@ import type { Rig } from './dragons';
 import { buildDressedDragon } from './dress';
 import { buildFood, FIRE, type Food } from './items';
 import { Particles } from './fire';
-import { disposeDeep } from './toon';
+import { cyl, disposeDeep, mesh, toon } from './toon';
+import type { Surface } from '../soloMachine';
+
+/** What the dragon brushes in "brush by myself" mode. */
+export interface BrushPose {
+  zone: Corner | null;
+  surface: Surface;
+}
+
+/** A chunky kid toothbrush; the pivot is at the bristles, the handle runs along +x. */
+function buildToothbrush() {
+  const g = new THREE.Group();
+  g.add(mesh(cyl(0.07, 0.07, 1.3), toon('#4fc3f7'), [0.75, 0, 0], undefined, [0, 0, Math.PI / 2]));
+  g.add(mesh(new THREE.BoxGeometry(0.34, 0.12, 0.14), toon('#4fc3f7'), [0.05, 0, 0]));
+  g.add(mesh(new THREE.BoxGeometry(0.3, 0.1, 0.16), toon('#ffffff'), [0.05, 0, -0.12]));
+  return g;
+}
+
+/** Mouth opening for each surface, so the dragon shows how to reach it. */
+const BRUSH_JAW: Record<Surface, number> = { outside: 0.05, inside: 0.5, tops: 0.45, tongue: 0.75 };
 
 export interface SceneFrame {
   faceVisible: boolean;
@@ -61,6 +80,8 @@ export class DragonScene {
   private eatT = -1;
   private eatFrom = new THREE.Vector3();
   private celebrateT = -1;
+  private brush: THREE.Group | null = null;
+  private brushPose: BrushPose | null = null;
   private v1 = new THREE.Vector3();
   private v2 = new THREE.Vector3();
   private v3 = new THREE.Vector3();
@@ -147,6 +168,33 @@ export class DragonScene {
   celebrate() {
     this.celebrateT = 0;
     this.foodHolder.visible = false;
+    this.setBrushing(null);
+  }
+
+  /** The dragon brushes along with the kid (null puts the brush away). */
+  setBrushing(pose: BrushPose | null) {
+    this.brushPose = pose;
+    if (pose && !this.brush) {
+      this.brush = buildToothbrush();
+      this.rig.head.add(this.brush);
+    }
+    if (this.brush) this.brush.visible = !!pose;
+  }
+
+  /** Places the brush on the zone (head space; +x is screen right) and scrubs in small circles. */
+  private moveBrush() {
+    const b = this.brush;
+    const p = this.brushPose;
+    if (!b || !p) return;
+    const side = p.zone ? (p.zone.endsWith('R') ? 1 : -1) : 0;
+    const upper = p.zone?.startsWith('T') ?? false;
+    const deep = p.surface === 'outside' ? 0 : p.surface === 'tongue' ? 0.35 : 0.25;
+    const y = p.surface === 'tongue' ? -0.62 : upper ? -0.33 : -0.6;
+    const circle = this.t * 2 * Math.PI * 2.2;
+    b.position.set(side * 0.38 + Math.cos(circle) * 0.05, y + Math.sin(circle) * 0.05, 1.2 - deep);
+    // The handle sticks out toward the zone's side; for the tongue, straight out and down.
+    b.rotation.set(0, side < 0 ? Math.PI : 0, side === 0 ? -Math.PI / 2.4 : upper ? 0.12 : -0.12);
+    if (side === 0) b.rotation.y = -Math.PI / 2;
   }
 
   frame(f: SceneFrame, dt: number) {
@@ -183,6 +231,8 @@ export class DragonScene {
 
     // --- Jaw ---------------------------------------------------------------
     let jaw = f.faceVisible ? f.jaw : 0;
+    if (this.brushPose) jaw = BRUSH_JAW[this.brushPose.surface];
+    this.moveBrush();
     if (eating) jaw = eatP < 0.43 ? Math.min(1, eatP * 4) : 0.12 + 0.18 * Math.abs(Math.sin((eatP - 0.43) * 28));
     if (celebrating) jaw = 0.35 + 0.2 * Math.abs(Math.sin(this.celebrateT * 8));
     this.jawOpen += (jaw - this.jawOpen) * damp(30, dt);
