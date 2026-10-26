@@ -9,6 +9,7 @@ import { DragonScene } from './scene/DragonScene';
 import { setFire, sfx, startLoops, stopLoops } from './audio';
 import { say, stopVoice, type VoiceLine } from './voice';
 import { dragonLevel } from '../rewards/scoring';
+import { neutralRoll, NO_TILT, tiltStep, type TiltState } from './tilt';
 
 export interface HudState {
   phase: Phase;
@@ -26,6 +27,8 @@ export interface HudState {
   /** How long the face has been missing (ms), while the game needs it. */
   noFaceMs: number;
   noCamera: boolean;
+  /** Steady sideways head tilt from upright (radians), while the "head straight" hint shows. */
+  tilt: number | null;
   debug?: string;
   tuning?: TuningReadout;
 }
@@ -81,6 +84,9 @@ export class GameRunner {
   private last = 0;
   private lastHud = 0;
   private neutral: Pose = { yaw: 0, pitch: 0 };
+  private uprightRoll = 0;
+  private tilt: TiltState = NO_TILT;
+  private tiltSaid = false;
   private fireOn = false;
   private paused = false;
   private size = { w: 0, h: 0 };
@@ -218,6 +224,7 @@ export class GameRunner {
       switch (e.type) {
         case 'calibrate':
           this.neutral = { yaw: face.yaw, pitch: face.pitch };
+          this.uprightRoll = neutralRoll(face.roll);
           break;
         case 'countdownTick':
           this.countdown = e.n;
@@ -279,6 +286,12 @@ export class GameRunner {
       }
     }
 
+    // Sideways head tilt doesn't aim anywhere; nudge the kid back upright.
+    const roll = face.roll - this.uprightRoll;
+    this.tilt = tiltStep(this.tilt, roll, dt, state.phase === 'aiming' && face.visible && !this.paused && !this.noCamera);
+    if (!this.tilt.on) this.tiltSaid = false;
+    else if (!this.tiltSaid) this.tiltSaid = say('headStraight', { priority: 1, cooldownMs: 12_000 });
+
     setFire(this.fireOn, state.hitting);
     this.scene.frame(
       {
@@ -314,6 +327,7 @@ export class GameRunner {
         head: this.scene.headScreen(),
         noFaceMs: this.noFaceMs,
         noCamera: this.noCamera,
+        tilt: this.tilt.on ? roll : null,
         tuning: this.o.tuning ? this.tuningReadout(face, aim, corner) : undefined,
         debug: this.o.debug
           ? `yaw ${(face.yaw * 57.3).toFixed(0)}° pitch ${(face.pitch * 57.3).toFixed(0)}° jaw ${face.jaw.toFixed(2)} aim ${aim.x.toFixed(0)},${aim.y.toFixed(0)}`

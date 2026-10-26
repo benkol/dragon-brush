@@ -252,7 +252,16 @@ function Hud({ hud, onQuit, onNoCamera }: { hud: HudState; onQuit: () => void; o
           <span className="secs">{hud.secondsLeft}</span>
         </div>
       )}
-      {aiming && !hud.hitting && hud.faceVisible && <div className="aim-label">{t('brush.aimHere')}</div>}
+      {aiming && !hud.hitting && hud.faceVisible && hud.tilt === null && <div className="aim-label">{t('brush.aimHere')}</div>}
+      {hud.tilt !== null && (
+        <div className="tilt-hint">
+          {/* A face that straightens itself up, starting from the kid's tilt (CSS turns clockwise, roll counterclockwise). */}
+          <span className="tilt-face" style={{ ['--tilt' as string]: `${(-hud.tilt * 180) / Math.PI}deg` }}>
+            🙂
+          </span>
+          {t('brush.headStraight')}
+        </div>
+      )}
       {aiming && hud.target && !hud.hitting && hud.faceVisible && (
         <div
           className="arrow"

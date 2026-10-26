@@ -270,13 +270,14 @@
     "noCamera": "Play without the camera",
     "autoOn": "No camera: the dragon aims by itself. Keep brushing!",
     "aimHere": "Open wide and aim here!",
+    "headStraight": "Head straight!",
     "quit": "Stop",
     "quitTitle": "Stop brushing?",
     "quitBody": "This brush won't earn points unless you finish it.",
     "keepGoing": "Keep brushing",
     "finishLater": "Stop for now",
     "saving": "Saving…",
-    "debug": "Debug: move to aim, hold space or press to open mouth, F hides the face"
+    "debug": "Debug: move to aim, hold space or press to open mouth, F hides the face, hold Q or E to tilt the head"
   },
   "summary": {
     "title": "Sparkly clean!",
@@ -431,6 +432,7 @@
     "where": "Where are you?",
     "farther": "Hold the phone a little further away.",
     "aimHere": "Open wide and aim at the target!",
+    "headStraight": "Keep your head straight, not to the side!",
     "corner_TR": "Look up, to the right!",
     "corner_TL": "Now up, to the left!",
     "corner_BL": "Now down, to the left!",

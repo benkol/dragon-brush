@@ -2,7 +2,7 @@
 // `npm run voice` turns them into clips.
 export const VOICE_LINES = [
   'count3', 'count2', 'count1', 'go',
-  'findFace', 'where', 'farther', 'aimHere',
+  'findFace', 'where', 'farther', 'aimHere', 'headStraight',
   'corner_TR', 'corner_TL', 'corner_BL', 'corner_BR',
   'halfway', 'yum1', 'yum2', 'yuck', 'celebrate', 'noCamera',
   // Brush by myself.

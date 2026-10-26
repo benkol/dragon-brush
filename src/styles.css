@@ -1394,6 +1394,38 @@ p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   animation: pulse 1s infinite;
 }
+/* "Head straight!" in place of the aim label. */
+.tilt-hint {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  background: var(--purple);
+  padding: 8px 18px 8px 10px;
+  border-radius: 999px;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  animation: pop-in 0.3s ease-out;
+}
+.tilt-face {
+  display: inline-block;
+  font-size: 2rem;
+  animation: straighten 1.2s ease-in-out infinite;
+}
+@keyframes straighten {
+  0%,
+  20% {
+    transform: rotate(var(--tilt));
+  }
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
 .arrow {
   position: absolute;
   font-size: 2.6rem;

@@ -139,13 +139,14 @@ export class CameraFaceSource implements FaceSource {
 
 /**
  * `?debug=1` input: pointer position aims, holding space or pressing opens
- * the mouth, F toggles "face lost".
+ * the mouth, F toggles "face lost", holding Q / E tilts the head.
  */
 export class DebugFaceSource implements FaceSource {
   private aim = { x: 0, y: 0 };
   private hasAim = false;
   private mouth = false;
   private hidden = false;
+  private roll = 0;
   private jaw = 0;
   private lastT = 0;
 
@@ -174,9 +175,12 @@ export class DebugFaceSource implements FaceSource {
       e.preventDefault();
     }
     if (e.code === 'KeyF') this.hidden = !this.hidden;
+    if (e.code === 'KeyQ') this.roll = 0.35;
+    if (e.code === 'KeyE') this.roll = -0.35;
   };
   private onKeyUp = (e: KeyboardEvent) => {
     if (e.code === 'Space') this.mouth = false;
+    if (e.code === 'KeyQ' || e.code === 'KeyE') this.roll = 0;
   };
 
   frame(now: number, size: Size): FaceFrame {
@@ -189,7 +193,7 @@ export class DebugFaceSource implements FaceSource {
       visible: !this.hidden,
       yaw: pose.yaw,
       pitch: pose.pitch,
-      roll: 0,
+      roll: this.roll,
       jaw: this.jaw,
       x: 0.5 + (p.x / size.w - 0.5) * 0.3,
       y: 0.45 + (p.y / size.h - 0.5) * 0.2,
