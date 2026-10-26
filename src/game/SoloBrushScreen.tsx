@@ -10,7 +10,7 @@ import { DEBUG, DEBUG_ROUND_SECONDS } from '../config';
 import type { Kid, SessionResult } from '../data/types';
 import type { FaceSource } from './faceTracker';
 import { SoloRunner, type SoloHud } from './soloRunner';
-import { SOLO_CONFIG } from './soloMachine';
+import { SOLO_CONFIG, SURFACES } from './soloMachine';
 import { CORNER_ORDER } from './gameMachine';
 import { loadVoice } from './voice';
 import { reportError } from '../errors';
@@ -184,6 +184,8 @@ function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => 
   const finished = hud.phase === 'spit' || hud.phase === 'celebrate' || hud.phase === 'done';
   // Zones before the current one are done; all of them once the tongue starts.
   const done = finished ? CORNER_ORDER : CORNER_ORDER.slice(0, brushing ? step.round : 0);
+  // How far through the current zone (each zone has one step per surface).
+  const zoneP = brushing && step.zone ? ((hud.stepIndex % SURFACES.length) + hud.stepP) / SURFACES.length : 0;
 
   return (
     <div className="hud">
@@ -230,7 +232,7 @@ function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => 
             {step.tip && <small>☝️ {t('solo.tipFront')}</small>}
           </div>
           <div className="solo-pics">
-            <MouthMap zone={step.zone} surface={step.surface} done={done} />
+            <MouthMap zone={step.zone} surface={step.surface} done={done} zoneP={zoneP} />
             <div className="solo-side">
               <ToothSide surface={step.surface} upper={step.zone?.startsWith('T') ?? false} />
               <StepRing p={hud.stepP} seconds={hud.secondsLeft} />

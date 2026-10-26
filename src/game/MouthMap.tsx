@@ -8,23 +8,57 @@ const GAP = 4;
 /** Front teeth are a bit longer than the back ones. */
 const TOOTH_H = [44, 40, 36, 32];
 
+/** Stain spots on a tooth, as fractions of its size; varied per tooth so they look natural. */
+const STAINS = [
+  [
+    [0.3, 0.35, 0.16],
+    [0.68, 0.7, 0.12],
+  ],
+  [
+    [0.62, 0.3, 0.13],
+    [0.32, 0.72, 0.15],
+  ],
+  [
+    [0.45, 0.5, 0.18],
+    [0.75, 0.22, 0.09],
+  ],
+];
+
 interface MapProps {
   zone: Corner | null;
   surface: Surface;
   /** Zones already brushed. */
   done: Corner[];
+  /** 0 → 1 through the current zone: its stains fade as it gets brushed. */
+  zoneP: number;
 }
 
-/** Front view of an open mouth, split into four zones. */
-export function MouthMap({ zone, surface, done }: MapProps) {
+/**
+ * Front view of an open mouth, split into four zones. Teeth not brushed yet
+ * have stains, the zone being brushed has a blue outline and sparkles while
+ * its stains fade, and brushed teeth are clean white.
+ */
+export function MouthMap({ zone, surface, done, zoneP }: MapProps) {
   const teeth = (upper: boolean) =>
     [1, -1].flatMap((side) =>
       TOOTH_H.map((h, i) => {
         const c: Corner = `${upper ? 'T' : 'B'}${side > 0 ? 'R' : 'L'}` as Corner;
         const x = side > 0 ? 152 + i * (TOOTH_W + GAP) : 148 - (i + 1) * TOOTH_W - i * GAP;
         const y = upper ? 40 : 180 - h;
-        const cls = c === zone ? 'tooth now' : done.includes(c) ? 'tooth done' : 'tooth';
-        return <rect key={`${c}${i}`} className={cls} x={x} y={y} width={TOOTH_W} height={h} rx={9} />;
+        const now = c === zone;
+        const clean = done.includes(c);
+        const stains = clean ? 0 : now ? 1 - zoneP : 1;
+        const k = (i + (upper ? 0 : 1) + (side > 0 ? 0 : 2)) % STAINS.length;
+        return (
+          <g key={`${c}${i}`} className={now ? 'tooth-g now' : 'tooth-g'}>
+            <rect className={now ? 'tooth now' : 'tooth'} x={x} y={y} width={TOOTH_W} height={h} rx={9} />
+            {stains > 0 &&
+              STAINS[k].map(([sx, sy, r], j) => (
+                <ellipse key={j} className="stain" cx={x + sx * TOOTH_W} cy={y + sy * h} rx={r * TOOTH_W * 1.2} ry={r * h} opacity={stains} />
+              ))}
+            {now && i % 2 === 0 && <Sparkle x={x + TOOTH_W - 4} y={upper ? y + h - 8 : y + 8} delay={i * 0.25} />}
+          </g>
+        );
       }),
     );
   return (
@@ -85,6 +119,17 @@ export function ToothSide({ surface, upper }: { surface: Surface; upper: boolean
         👅
       </text>
     </svg>
+  );
+}
+
+/** A twinkling four-point star. */
+function Sparkle({ x, y, delay }: { x: number; y: number; delay: number }) {
+  return (
+    <path
+      className="sparkle"
+      style={{ animationDelay: `${delay}s`, transformOrigin: `${x}px ${y}px` }}
+      d={`M${x} ${y - 9} Q${x + 1.5} ${y - 1.5} ${x + 9} ${y} Q${x + 1.5} ${y + 1.5} ${x} ${y + 9} Q${x - 1.5} ${y + 1.5} ${x - 9} ${y} Q${x - 1.5} ${y - 1.5} ${x} ${y - 9} Z`}
+    />
   );
 }
 

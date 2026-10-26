@@ -1836,33 +1836,52 @@ p {
   fill: #e85d7a;
   transition: fill 0.3s;
 }
+/* Being brushed: blue outline and sparkles. Not yet: stains. Done: clean white. */
 .mouth-map .tongue.now,
 .tooth-side .tongue.now {
-  fill: #ffd23f;
+  stroke: #2f9df4;
+  stroke-width: 4;
   animation: zone-glow 1.2s ease-in-out infinite;
 }
 .mouth-map .tooth {
   fill: #fff;
   stroke: #e9dccd;
   stroke-width: 2;
-  transition: fill 0.3s;
-}
-.mouth-map .tooth.done {
-  fill: #e8fff1;
-  stroke: var(--green);
 }
 .mouth-map .tooth.now {
-  fill: #ffe57a;
-  stroke: #ffb800;
-  stroke-width: 3;
+  stroke: #2f9df4;
+  stroke-width: 3.5;
+}
+.mouth-map .tooth-g.now {
   animation: zone-glow 1.2s ease-in-out infinite;
+}
+.mouth-map .stain {
+  fill: #c9a25e;
+  transition: opacity 0.4s;
+}
+.sparkle {
+  fill: #fff;
+  stroke: #9fd8ff;
+  stroke-width: 1;
+  animation: twinkle 1.1s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(0.4) rotate(0deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.15) rotate(45deg);
+    opacity: 1;
+  }
 }
 .mouth-map .done-star {
   font-size: 30px;
 }
 @keyframes zone-glow {
   50% {
-    filter: brightness(1.15) drop-shadow(0 0 6px #ffd23f);
+    filter: drop-shadow(0 0 6px #7cc6ff);
   }
 }
 .tooth-side .tooth-shape {
@@ -1877,7 +1896,7 @@ p {
   stroke-linecap: round;
 }
 .tooth-side .face.now {
-  stroke: #ffb800;
+  stroke: #2f9df4;
 }
 .tooth-side .side-label {
   font-size: 20px;
@@ -1934,7 +1953,9 @@ p {
   .wobble,
   .btn-brush,
   .arrow,
-  .brush-wiggle {
+  .brush-wiggle,
+  .sparkle,
+  .mouth-map .tooth-g.now {
     animation: none;
   }
 }
