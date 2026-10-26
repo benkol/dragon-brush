@@ -1876,9 +1876,6 @@ p {
     opacity: 1;
   }
 }
-.mouth-map .done-star {
-  font-size: 30px;
-}
 @keyframes zone-glow {
   50% {
     filter: drop-shadow(0 0 6px #7cc6ff);

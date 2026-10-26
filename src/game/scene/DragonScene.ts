@@ -24,6 +24,11 @@ function buildToothbrush() {
   return g;
 }
 
+/** Fang color before brushing, matching the stains on the mouth map. */
+const STAINED = new THREE.Color('#c9a25e');
+const CLEAN = new THREE.Color('#ffffff');
+const SHINE_S = 2.2;
+
 /** Mouth opening for each surface, so the dragon shows how to reach it. */
 const BRUSH_JAW: Record<Surface, number> = { outside: 0.05, inside: 0.5, tops: 0.45, tongue: 0.75 };
 
@@ -82,6 +87,9 @@ export class DragonScene {
   private celebrateT = -1;
   private brush: THREE.Group | null = null;
   private brushPose: BrushPose | null = null;
+  /** Teeth being cleaned in "brush by myself" (they shine when the dragon celebrates). */
+  private cleaning = false;
+  private shineAcc = 0;
   private v1 = new THREE.Vector3();
   private v2 = new THREE.Vector3();
   private v3 = new THREE.Vector3();
@@ -169,6 +177,29 @@ export class DragonScene {
     this.celebrateT = 0;
     this.foodHolder.visible = false;
     this.setBrushing(null);
+  }
+
+  /** 0 = stained fangs, 1 = clean. */
+  setTeethClean(p: number) {
+    this.cleaning = true;
+    this.rig.teeth.color.copy(STAINED).lerp(CLEAN, Math.min(1, Math.max(0, p)));
+  }
+
+  /** Sparkles on clean fangs and a glow pulse while celebrating. */
+  private shine(dt: number) {
+    const on = this.cleaning && this.celebrateT >= 0 && this.celebrateT < SHINE_S;
+    this.rig.teeth.emissive.setScalar(on ? 0.35 * Math.abs(Math.sin(this.celebrateT * 7)) : 0);
+    if (!on) return;
+    this.shineAcc += 40 * dt;
+    const vel = this.v3;
+    while (this.shineAcc >= 1) {
+      this.shineAcc -= 1;
+      const fang = this.rig.fangs[Math.floor(Math.random() * this.rig.fangs.length)];
+      fang.getWorldPosition(this.v2);
+      vel.set(Math.random() - 0.5, Math.random() * 0.8, 0.5).multiplyScalar(1.6);
+      // Light blue, like the sparkles on the map.
+      this.sparks.emit(this.v2, vel, 0.45 + Math.random() * 0.3, 0.55 + (Math.random() - 0.5) * 0.05);
+    }
   }
 
   /** The dragon brushes along with the kid (null puts the brush away). */
@@ -339,6 +370,7 @@ export class DragonScene {
       }
     }
     if (eating && eatP >= 1) this.eatT = -1;
+    this.shine(dt);
 
     this.fire.update(dt);
     this.smoke.update(dt);

@@ -197,6 +197,9 @@ export class SoloRunner {
       }
     }
 
+    // The dragon's fangs get cleaner along with the kid's teeth.
+    this.scene.setTeethClean(soloProgress(state, cfg));
+
     // Without the camera the dragon just looks ahead.
     const face = this.noCamera ? { ...HIDDEN, visible: true } : live;
     this.scene.frame(

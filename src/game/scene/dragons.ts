@@ -41,6 +41,9 @@ export interface Rig {
   pupils: THREE.Object3D[];
   cheeks: THREE.MeshToonMaterial[];
   wings: THREE.Group[];
+  /** The fangs' shared material, and the fangs (for sparkles). */
+  teeth: THREE.MeshToonMaterial;
+  fangs: THREE.Mesh[];
   anchors: { hat: THREE.Object3D; glasses: THREE.Object3D; neck: THREE.Object3D; mouth: THREE.Object3D };
   /** 0 = closed, 1 = wide open. Moves the jaw and sizes the mouth inside. */
   setJawOpen(open: number): void;
@@ -162,8 +165,10 @@ export function buildDragon(id: string, level = 1): Rig {
   // setJawOpen grows it as the jaw drops.
   const mouthInside = mesh(sphere(0.5, 20), toon('#7a1830'), [0, -0.45, 0.6], [1.0, 0.2, 0.72]);
   head.add(mouthInside);
-  // Little fangs.
-  for (const s of [-1, 1]) head.add(mesh(cone(0.06, 0.14, 8), toon('#ffffff'), [0.22 * s, -0.5, 1.02], undefined, [Math.PI, 0, 0]));
+  // Little fangs, sharing one material so they can be stained and cleaned.
+  const teeth = toon('#ffffff');
+  const fangs = [-1, 1].map((s) => mesh(cone(0.06, 0.14, 8), teeth, [0.22 * s, -0.5, 1.02], undefined, [Math.PI, 0, 0]));
+  head.add(...fangs);
 
   const jaw = new THREE.Group();
   jaw.position.set(0, -0.42, 0.1);
@@ -244,5 +249,5 @@ export function buildDragon(id: string, level = 1): Rig {
     mouthInside.position.y = -0.45 - 0.1 * o;
   };
 
-  return { root, head, jaw, eyes, pupils, cheeks, wings, anchors: { hat, glasses, neck, mouth }, setJawOpen };
+  return { root, head, jaw, eyes, pupils, cheeks, wings, teeth, fangs, anchors: { hat, glasses, neck, mouth }, setJawOpen };
 }

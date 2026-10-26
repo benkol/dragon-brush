@@ -70,11 +70,6 @@ export function MouthMap({ zone, surface, done, zoneP }: MapProps) {
       <ellipse className={`tongue ${surface === 'tongue' ? 'now' : ''}`} cx={150} cy={152} rx={78} ry={30} />
       {teeth(true)}
       {teeth(false)}
-      {done.map((c) => (
-        <text key={c} className="done-star" x={c.endsWith('R') ? 222 : 78} y={c.startsWith('T') ? 74 : 156} textAnchor="middle">
-          ⭐
-        </text>
-      ))}
     </svg>
   );
 }
