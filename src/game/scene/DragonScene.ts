@@ -75,6 +75,8 @@ export class DragonScene {
   private halfW = 1;
   private halfH = 1;
   private baseScale = 1;
+  /** Share of the view's height the head may take (the game leaves room for the targets). */
+  private fill = 0.3;
   private t = 0;
   private jawOpen = 0;
   private fireAcc = 0;
@@ -118,6 +120,12 @@ export class DragonScene {
     this.scene.add(this.smoke.points, this.fire.points, this.sparks.points);
   }
 
+  /** A bigger dragon when it has the view to itself ("brush by myself"). */
+  setFill(fill: number) {
+    this.fill = fill;
+    this.resize(this.w, this.h);
+  }
+
   resize(w: number, h: number) {
     this.w = w;
     this.h = h;
@@ -127,7 +135,7 @@ export class DragonScene {
     this.halfH = Math.tan(THREE.MathUtils.degToRad(FOV / 2)) * CAM_Z;
     this.halfW = this.halfH * this.camera.aspect;
     // Head is ~2.6 units wide (with ears) and ~2.4 tall with neck.
-    this.baseScale = Math.min((this.halfW * 2 * 0.6) / 2.6, (this.halfH * 2 * 0.3) / 2.2);
+    this.baseScale = Math.min((this.halfW * 2 * 0.6) / 2.6, (this.halfH * 2 * this.fill) / 2.2);
     const scale = (h * this.renderer.getPixelRatio()) / (2 * Math.tan(THREE.MathUtils.degToRad(FOV / 2)));
     [this.fire, this.smoke, this.sparks].forEach((p) => p.setScale(scale));
   }

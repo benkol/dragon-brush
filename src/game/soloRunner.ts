@@ -72,6 +72,8 @@ export class SoloRunner {
   constructor(private o: SoloRunnerOptions) {
     const level = dragonLevel(o.kid.dragonXp[o.kid.equipped.dragon] ?? 0);
     this.scene = new DragonScene(o.canvas, o.kid.equipped, level);
+    // No targets in this mode: the dragon fills its area above the instructions.
+    this.scene.setFill(0.55);
     this.steps = soloSteps(o.cfg.zoneMs);
     this.state = soloInitial(o.cfg);
   }
@@ -234,7 +236,8 @@ export class SoloRunner {
         faceVisible: seen,
         noFaceMs: this.noFaceMs,
         noCamera: this.noCamera,
-        head: this.scene.headScreen(),
+        // The scene sits below the top bar; the HUD is positioned over the whole screen.
+        head: (({ x, y }) => ({ x, y: y + container.offsetTop }))(this.scene.headScreen()),
         debug: this.o.debug ? `step ${state.step} ${step.zone ?? '-'} ${step.surface} seen ${seen} active ${(state.activeMs / 1000).toFixed(1)}s` : undefined,
       });
     }

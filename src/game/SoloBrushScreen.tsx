@@ -38,6 +38,7 @@ function SoloGame({ kid: initialKid }: { kid: Kid }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const runnerRef = useRef<SoloRunner | null>(null);
   const sourceRef = useRef<FaceSource | null>(null);
   const [stage, setStage] = useState<Stage>('intro');
@@ -97,7 +98,7 @@ function SoloGame({ kid: initialKid }: { kid: Kid }) {
       const source = await openFaceSource(!DEBUG, videoRef.current!, rootRef.current!, kid);
       sourceRef.current = source;
       const runner = new SoloRunner({
-        container: rootRef.current!,
+        container: stageRef.current!,
         canvas: canvasRef.current!,
         source,
         kid: { ...kid, equipped: withCostume(kid.equipped, Date.now(), kid.birthday) },
@@ -146,7 +147,13 @@ function SoloGame({ kid: initialKid }: { kid: Kid }) {
   return (
     <div ref={rootRef} className={`brush solo ${bg !== 'camera' ? `bg-${bg} has-bg` : 'cam-bg'} ${DEBUG ? 'debug' : ''} ${noCamera ? 'no-cam' : ''}`}>
       <video ref={videoRef} className="cam" playsInline muted />
-      <canvas ref={canvasRef} className="stage3d" />
+      {/* The dragon gets the space above the instructions, so they never cover it. */}
+      <div className="solo-layout">
+        <div ref={stageRef} className="solo-stage">
+          <canvas ref={canvasRef} className="stage3d" />
+        </div>
+        {stage === 'play' && hud && <SoloPanel hud={hud} />}
+      </div>
 
       {stage === 'play' && hud && <SoloHudView hud={hud} onQuit={() => setQuitting(true)} onNoCamera={playWithoutCamera} />}
       {(hud?.phase === 'celebrate' || stage === 'saving' || stage === 'summary') && <Confetti count={120} />}
@@ -184,8 +191,6 @@ function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => 
   const finished = hud.phase === 'spit' || hud.phase === 'celebrate' || hud.phase === 'done';
   // Zones before the current one are done; all of them once the tongue starts.
   const done = finished ? CORNER_ORDER : CORNER_ORDER.slice(0, brushing ? step.round : 0);
-  // How far through the current zone (each zone has one step per surface).
-  const zoneP = brushing && step.zone ? ((hud.stepIndex % SURFACES.length) + hud.stepP) / SURFACES.length : 0;
 
   return (
     <div className="hud">
@@ -205,7 +210,7 @@ function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => 
       </div>
 
       {hud.phase === 'ready' && (
-        <div className="hud-msg" style={{ top: hud.head.y - 140 }}>
+        <div className="hud-msg" style={{ top: Math.max(66, hud.head.y - 140) }}>
           {hud.faceVisible ? t('brush.lookStraight') : t('brush.findFace')}
         </div>
       )}
@@ -218,18 +223,35 @@ function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => 
       <NoFaceHelp noFaceMs={hud.noFaceMs} onNoCamera={onNoCamera} />
       {hud.noCamera && !finished && <div className="auto-pill">⏱️ {t('solo.autoOn')}</div>}
 
+      {hud.debug && <div className="debug-line">{hud.debug}</div>}
+    </div>
+  );
+}
+
+/** Where and how to brush, below the dragon (the spit card at the end, nothing while celebrating). */
+function SoloPanel({ hud }: { hud: SoloHud }) {
+  const { t } = useTranslation();
+  const { step } = hud;
+  const brushing = hud.phase === 'brushing';
+  const done = hud.phase === 'spit' ? CORNER_ORDER : CORNER_ORDER.slice(0, brushing ? step.round : 0);
+  // How far through the current zone (each zone has one step per surface).
+  const zoneP = brushing && step.zone ? ((hud.stepIndex % SURFACES.length) + hud.stepP) / SURFACES.length : 0;
+
+  return (
+    <>
       {hud.phase === 'spit' && (
         <div className="solo-panel spit pop-in">
           <span className="big-emoji">💦🚫🚰</span>
           <strong>{t('solo.spit')}</strong>
         </div>
       )}
-      {(brushing || hud.phase === 'countdown') && (
+      {(brushing || hud.phase === 'ready' || hud.phase === 'countdown') && (
         <div key={hud.stepIndex} className={`solo-panel ${hud.present ? '' : 'paused'}`}>
           <div className="solo-title">
             <strong>{step.zone ? t(`solo.zone.${step.zone}`) : t('solo.surface.tongue')}</strong>
             {step.zone && <span>{t(`solo.surface.${step.surface}`)}</span>}
-            {step.tip && <small>☝️ {t('solo.tipFront')}</small>}
+            {/* Always takes its space, so the dragon's area doesn't change size between steps. */}
+            <small className={step.tip ? '' : 'hidden-tip'}>☝️ {t('solo.tipFront')}</small>
           </div>
           <div className="solo-pics">
             <MouthMap zone={step.zone} surface={step.surface} done={done} zoneP={zoneP} />
@@ -240,7 +262,6 @@ function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => 
           </div>
         </div>
       )}
-      {hud.debug && <div className="debug-line">{hud.debug}</div>}
-    </div>
+    </>
   );
 }

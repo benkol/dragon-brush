@@ -1752,12 +1752,35 @@ p {
   gap: 6px;
   font-size: 1.1rem;
 }
+/* The dragon gets the space between the top bar and the instructions. */
+.solo-layout {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: calc(60px + var(--safe-top)) 0 calc(12px + var(--safe-bottom));
+}
+.solo-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+/* Camera preview (with a background picked) goes to the top corner, clear of the panel. */
+.brush.solo.has-bg .cam {
+  bottom: auto;
+  top: calc(60px + var(--safe-top));
+  left: auto;
+  right: 12px;
+  width: 72px;
+  height: 96px;
+  transform: scaleX(-1);
+}
 /* Big enough to read from a phone stand. */
 .solo-panel {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: calc(12px + var(--safe-bottom));
+  position: relative;
+  flex: none;
+  width: calc(100% - 20px);
   max-width: 540px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.94);
@@ -1801,6 +1824,9 @@ p {
   font-size: 1rem;
   color: var(--primary-dark);
 }
+.solo-title .hidden-tip {
+  visibility: hidden;
+}
 .solo-pics {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -1820,6 +1846,35 @@ p {
 }
 .tooth-side {
   max-width: 120px;
+}
+/* Short screens: smaller pictures, so the dragon above keeps a fair share. */
+.mouth-map {
+  max-height: 24dvh;
+}
+.tooth-side {
+  max-height: 14dvh;
+}
+@media (max-height: 700px) {
+  .solo-panel {
+    padding: 8px 12px 10px;
+    gap: 4px;
+  }
+  .solo-title strong {
+    font-size: 1.45rem;
+  }
+  .solo-title span {
+    font-size: 1.1rem;
+  }
+  .solo-title small {
+    font-size: 0.9rem;
+  }
+  .step-ring {
+    width: 58px;
+    height: 58px;
+  }
+  .step-ring span {
+    font-size: 1.4rem;
+  }
 }
 .mouth-map .lip {
   fill: #ff9fae;
