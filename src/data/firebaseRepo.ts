@@ -258,6 +258,11 @@ export const firebaseRepo: Repo = {
     batch.update(kidRef(fid, kidId), { brushModes });
     await commitSoon(batch);
   },
+  async setKidVoice(fid, kidId, voice) {
+    const batch = writeBatch(db);
+    batch.update(kidRef(fid, kidId), { voice });
+    await commitSoon(batch);
+  },
   async deleteKid(fid, kidId) {
     await deleteKidData(fid, kidId);
   },

@@ -421,7 +421,9 @@
   },
   "voiceSettings": {
     "toggle": "Spoken instructions",
-    "help": "On this phone. The dragon says what to do (countdown, where to aim, cheers), in the app's language."
+    "help": "Spoken instructions: the dragon says what to do (countdown, where to aim, cheers), in the app's language. The speaker button while brushing changes it for that kid too.",
+    "on": "On",
+    "off": "Off"
   },
   "voice": {
     "count3": "Three!",

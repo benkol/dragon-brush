@@ -8,7 +8,7 @@ import { DEBUG, DEBUG_ROUND_SECONDS } from '../config';
 import type { Kid, SessionResult } from '../data/types';
 import type { FaceSource } from './faceTracker';
 import { GameRunner, HINT_AFTER_MS, type HudState } from './runner';
-import { loadVoice } from './voice';
+import { loadVoice, setVoiceEnabled } from './voice';
 import { reportError } from '../errors';
 import { withCostume } from '../rewards/seasons';
 import { CORNER_ORDER, DEFAULT_CONFIG } from './gameMachine';
@@ -94,6 +94,8 @@ function BrushGame({ kid: initialKid }: { kid: Kid }) {
 
   const start = async () => {
     unlockAudio();
+    // Spoken instructions are a per-kid setting.
+    setVoiceEnabled(kid.voice !== false);
     // Loads in parallel with the camera; errors just mean no voice clips.
     const voiceReady = loadVoice().catch(() => {});
     setStage('loading');
@@ -173,7 +175,7 @@ function BrushGame({ kid: initialKid }: { kid: Kid }) {
         <span />
       </div>
 
-      {playing && hud && <Hud hud={hud} onQuit={() => setQuitting(true)} onNoCamera={playWithoutCamera} />}
+      {playing && hud && <Hud hud={hud} kidId={kid.id} onQuit={() => setQuitting(true)} onNoCamera={playWithoutCamera} />}
       {(hud?.phase === 'celebrate' || stage === 'saving' || stage === 'summary') && <Confetti count={120} />}
 
       {stage === 'intro' && (
@@ -198,7 +200,7 @@ function BrushGame({ kid: initialKid }: { kid: Kid }) {
   );
 }
 
-function Hud({ hud, onQuit, onNoCamera }: { hud: HudState; onQuit: () => void; onNoCamera: () => void }) {
+function Hud({ hud, kidId, onQuit, onNoCamera }: { hud: HudState; kidId: string; onQuit: () => void; onNoCamera: () => void }) {
   const { t } = useTranslation();
   const r = hud.targetR;
   const circ = 2 * Math.PI * (r - 8);
@@ -210,7 +212,7 @@ function Hud({ hud, onQuit, onNoCamera }: { hud: HudState; onQuit: () => void; o
         <button className="icon-btn dark" onClick={onQuit} aria-label={t('brush.quit')}>
           ✕
         </button>
-        <VoiceButton />
+        <VoiceButton kidId={kidId} />
         <div className="total-bar">
           <div style={{ width: `${hud.total * 100}%` }} />
         </div>

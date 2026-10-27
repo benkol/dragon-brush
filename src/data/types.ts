@@ -62,6 +62,8 @@ export interface Kid extends KidStats {
   difficulty: Difficulty;
   /** Which brushing modes the kid sees (missing = both). */
   brushModes?: BrushModes;
+  /** Spoken instructions while brushing (missing = on). */
+  voice?: boolean;
   /** YYYY-MM-DD; only month and day are used. */
   birthday: string | null;
 }

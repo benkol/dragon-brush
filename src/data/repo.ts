@@ -46,6 +46,7 @@ export interface Repo {
   deleteKid(familyId: string, kidId: string): Promise<void>;
   setDifficulty(familyId: string, kidId: string, difficulty: Difficulty): Promise<void>;
   setBrushModes(familyId: string, kidId: string, modes: BrushModes): Promise<void>;
+  setKidVoice(familyId: string, kidId: string, on: boolean): Promise<void>;
   /**
    * Reads the latest kid, applies `fn` and writes the new stats (and an
    * optional session record) atomically, so two parents saving at once

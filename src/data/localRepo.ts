@@ -122,6 +122,10 @@ export const localRepo: Repo = {
     db.kids[kidId].brushModes = brushModes;
     save();
   },
+  async setKidVoice(_uid, kidId, voice) {
+    db.kids[kidId].voice = voice;
+    save();
+  },
   async deleteKid(_uid, kidId) {
     delete db.kids[kidId];
     delete db.sessions[kidId];

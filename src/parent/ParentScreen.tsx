@@ -11,7 +11,6 @@ import { BRUSH_MODES, type Kid } from '../data/types';
 import { DEMO_MODE } from '../config';
 import { DIFFICULTIES } from '../game/difficulty';
 import { setTuningEnabled, tuningEnabled } from '../game/tuningPref';
-import { setVoiceEnabled, voiceEnabled } from '../game/voice';
 import { applyDentist, applyToothFairy } from '../rewards/scoring';
 
 const TABS = ['account', 'kids', 'family', 'prizes', 'points'] as const;
@@ -60,7 +59,6 @@ function AccountTab() {
   const { t } = useTranslation();
   const nav = useNavigate();
   const [tuning, setTuning] = useState(tuningEnabled);
-  const [voice, setVoice] = useState(voiceEnabled);
   const [deleting, setDeleting] = useState(false);
 
   return (
@@ -88,20 +86,6 @@ function AccountTab() {
 
       <section className="card">
         <h2>📱 {t('parent.thisPhone')}</h2>
-        <label className="toggle-row">
-          <input
-            type="checkbox"
-            checked={voice}
-            onChange={(e) => {
-              setVoiceEnabled(e.target.checked);
-              setVoice(e.target.checked);
-            }}
-          />
-          <span>
-            <strong>{t('voiceSettings.toggle')}</strong>
-            <span className="muted small">{t('voiceSettings.help')}</span>
-          </span>
-        </label>
         <label className="toggle-row">
           <input
             type="checkbox"
@@ -190,6 +174,17 @@ function KidsTab({ onToast }: { onToast: (text: string) => void }) {
           </div>
 
           <div className="parent-kid-setting">
+            <span className="muted small">{t('voiceSettings.toggle')}</span>
+            <div className="seg" role="radiogroup" aria-label={t('voiceSettings.toggle')}>
+              {[true, false].map((on) => (
+                <button key={String(on)} role="radio" aria-checked={(k.voice !== false) === on} className={(k.voice !== false) === on ? 'on' : ''} onClick={() => repo.setKidVoice(fid, k.id, on)}>
+                  {on ? `🔊 ${t('voiceSettings.on')}` : `🔇 ${t('voiceSettings.off')}`}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="parent-kid-setting">
             <span className="muted small">{t('moments.label')}</span>
             <div className="row">
               <button className="btn btn-small btn-ghost" onClick={() => logMoment(k, 'toothFairy')}>
@@ -204,6 +199,7 @@ function KidsTab({ onToast }: { onToast: (text: string) => void }) {
       ))}
       <p className="muted small">{t('difficulty.help')}</p>
       <p className="muted small">{t('brushModes.help')}</p>
+      <p className="muted small">{t('voiceSettings.help')}</p>
       {editing && <KidForm kid={editing} onClose={() => setEditing(null)} />}
       {logging && <LogBrushModal kid={logging} onClose={() => setLogging(null)} onDone={onToast} />}
     </>

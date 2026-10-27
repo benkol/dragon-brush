@@ -12,7 +12,7 @@ import type { FaceSource } from './faceTracker';
 import { SoloRunner, type SoloHud } from './soloRunner';
 import { SOLO_CONFIG, SURFACES } from './soloMachine';
 import { CORNER_ORDER } from './gameMachine';
-import { loadVoice } from './voice';
+import { loadVoice, setVoiceEnabled } from './voice';
 import { reportError } from '../errors';
 import { withCostume } from '../rewards/seasons';
 import { unlockAudio } from './audio';
@@ -92,6 +92,8 @@ function SoloGame({ kid: initialKid }: { kid: Kid }) {
 
   const start = async () => {
     unlockAudio();
+    // Spoken instructions are a per-kid setting.
+    setVoiceEnabled(kid.voice !== false);
     const voiceReady = loadVoice().catch(() => {});
     setStage('loading');
     try {
@@ -155,7 +157,7 @@ function SoloGame({ kid: initialKid }: { kid: Kid }) {
         {stage === 'play' && hud && <SoloPanel hud={hud} />}
       </div>
 
-      {stage === 'play' && hud && <SoloHudView hud={hud} onQuit={() => setQuitting(true)} onNoCamera={playWithoutCamera} />}
+      {stage === 'play' && hud && <SoloHudView hud={hud} kidId={kid.id} onQuit={() => setQuitting(true)} onNoCamera={playWithoutCamera} />}
       {(hud?.phase === 'celebrate' || stage === 'saving' || stage === 'summary') && <Confetti count={120} />}
 
       {stage === 'intro' && (
@@ -184,7 +186,7 @@ function SoloGame({ kid: initialKid }: { kid: Kid }) {
   );
 }
 
-function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => void; onNoCamera: () => void }) {
+function SoloHudView({ hud, kidId, onQuit, onNoCamera }: { hud: SoloHud; kidId: string; onQuit: () => void; onNoCamera: () => void }) {
   const { t } = useTranslation();
   const { step } = hud;
   const brushing = hud.phase === 'brushing';
@@ -198,7 +200,7 @@ function SoloHudView({ hud, onQuit, onNoCamera }: { hud: SoloHud; onQuit: () => 
         <button className="icon-btn dark" onClick={onQuit} aria-label={t('brush.quit')}>
           ✕
         </button>
-        <VoiceButton />
+        <VoiceButton kidId={kidId} />
         <div className="total-bar">
           <div style={{ width: `${hud.total * 100}%` }} />
         </div>

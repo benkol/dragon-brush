@@ -7,27 +7,16 @@ import type { VoiceLine } from './voiceLines';
 
 export type { VoiceLine };
 
-const KEY = 'dragonbrush.voice';
+/** On or off for the current brush; set from the kid's setting when it starts. */
+let enabled = true;
 
-export function voiceEnabled(): boolean {
-  try {
-    return localStorage.getItem(KEY) !== '0';
-  } catch {
-    return true;
-  }
-}
+export const voiceEnabled = () => enabled;
 
 export function setVoiceEnabled(on: boolean) {
-  try {
-    localStorage.setItem(KEY, on ? '1' : '0');
-  } catch {
-    // Not persisted; applies to this session only.
-  }
   if (!on) stopVoice();
   enabled = on;
 }
 
-let enabled = voiceEnabled();
 let lang: 'en' | 'he' = 'en';
 const clips = new Map<string, AudioBuffer>();
 let current: { stop(): void; priority: number } | null = null;
@@ -40,7 +29,6 @@ const langOf = (l: string): 'en' | 'he' => (l.startsWith('he') ? 'he' : 'en');
  * the Start tap) so the audio context exists. Missing clips are fine.
  */
 export async function loadVoice() {
-  enabled = voiceEnabled();
   lang = langOf(i18n.language);
   const ctx = audioContext();
   // iOS only lets speech start from a tap; this silent line unlocks it.

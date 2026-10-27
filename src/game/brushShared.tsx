@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import type { Kid } from '../data/types';
 import { Modal } from '../ui/ui';
+import { useApp, useFamilyId } from '../auth/AppProvider';
+import { reportError } from '../errors';
 import { HINT_AFTER_MS, NO_CAMERA_AFTER_MS } from './runner';
 import { CameraFaceSource, DebugFaceSource, type FaceSource } from './faceTracker';
 import { setVoiceEnabled, voiceEnabled, type VoiceLine } from './voice';
@@ -110,9 +112,11 @@ export function greetingFor(kid: Kid, now: number): VoiceLine | undefined {
   return h ? (`hol_${h.holiday}` as VoiceLine) : undefined;
 }
 
-/** Speaker toggle for the spoken instructions (remembered on this phone). */
-export function VoiceButton() {
+/** Speaker toggle for the spoken instructions, saved as this kid's setting. */
+export function VoiceButton({ kidId }: { kidId: string }) {
   const { t } = useTranslation();
+  const { repo } = useApp();
+  const fid = useFamilyId();
   const [on, setOn] = useState(voiceEnabled);
   return (
     <button
@@ -122,6 +126,7 @@ export function VoiceButton() {
       onClick={() => {
         setVoiceEnabled(!on);
         setOn(!on);
+        repo.setKidVoice(fid, kidId, !on).catch((e) => reportError(e, 'kid-voice'));
       }}
     >
       {on ? '🔊' : '🔇'}
