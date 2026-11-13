@@ -12,6 +12,7 @@ import ParentScreen from './parent/ParentScreen';
 import HistoryScreen from './parent/HistoryScreen';
 import ErrorBoundary from './ui/ErrorBoundary';
 import PrivacyScreen from './PrivacyScreen';
+import DesktopNotice from './ui/DesktopNotice';
 
 // The game pulls in MediaPipe; load it only when brushing.
 const BrushScreen = lazy(() => import('./game/BrushScreen'));
@@ -58,6 +59,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ErrorBoundary>
+        <DesktopNotice />
         <AppProvider fallback={<Splash />}>
           <AppRoutes />
         </AppProvider>

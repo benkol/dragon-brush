@@ -1733,6 +1733,13 @@ p {
   }
 }
 
+.desktop-notice .desktop-url {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--purple-dark);
+  margin: 0;
+}
+
 /* Brush by myself ------------------------------------------------------- */
 .btn-brush.solo-btn {
   background: linear-gradient(180deg, #9a7dff, var(--purple));
