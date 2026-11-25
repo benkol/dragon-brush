@@ -1,0 +1,4 @@
+# Hebrew page that explains Dragon Brush (the app itself runs on
+# dragon-brush.web.app). Static files, no build.
+[build]
+  publish = "."
