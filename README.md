@@ -91,3 +91,7 @@ Each report has an `expireAt` date, 90 days out. To have Firestore delete old re
 ## Explainer page
 
 `site/` is the static page at [dragon.benkol.com](https://dragon.benkol.com) (Hebrew) and [/en/](https://dragon.benkol.com/en/) (English), hosted on Netlify. It has no build step: deploy the `site/` folder as is.
+
+## License
+
+[MIT](LICENSE)
