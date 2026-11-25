@@ -186,3 +186,16 @@ footer a { color: var(--purple-dark); }
 
 /* English: the FAQ plus/minus sits on the right */
 [dir='ltr'] summary::after { float: right; }
+
+/* QR code in "Getting started": for visitors on a computer */
+.qr-card {
+  display: inline-flex; align-items: center; gap: 22px; text-align: start;
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 18px 26px 18px 18px; margin: 0 auto 30px; max-width: 520px;
+}
+[dir='rtl'] .qr-card { padding: 18px 18px 18px 26px; }
+.qr-card img { width: 160px; height: 160px; flex: none; border: 3px solid var(--line); border-radius: 14px; padding: 6px; image-rendering: pixelated; }
+.qr-card h3 { font-size: 1.25rem; margin-bottom: 6px; }
+.qr-card p { color: var(--muted); }
+/* On a phone you'd tap the button instead. */
+@media (hover: none) and (pointer: coarse) { .qr-card { display: none; } }
