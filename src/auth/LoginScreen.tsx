@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useApp } from './AppProvider';
 import { LangButton, Screen } from '../ui/ui';
-import { ABOUT_URL, DEMO_MODE, RECAPTCHA_SITE_KEY } from '../config';
+import { aboutUrl, DEMO_MODE, RECAPTCHA_SITE_KEY } from '../config';
 import { DragonImg } from '../ui/Preview';
 import { DEFAULT_EQUIPPED } from '../rewards/catalog';
 
 export default function LoginScreen() {
   const { repo } = useApp();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [mode, setMode] = useState<'signIn' | 'signUp'>('signIn');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -92,7 +92,7 @@ export default function LoginScreen() {
         <Link to="/privacy">{t('privacy.link')}</Link>
       </p>
       <p className="muted small center">
-        <a href={ABOUT_URL} target="_blank" rel="noopener">
+        <a href={aboutUrl(i18n.language)} target="_blank" rel="noopener">
           🐲 {t('about.whatIs')}
         </a>
       </p>

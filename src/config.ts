@@ -26,5 +26,5 @@ export const FACE_MODEL_LOCAL = '/mediapipe/face_landmarker.task';
 export const FACE_MODEL_CDN =
   'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task';
 
-/** The page that explains the app (Hebrew), on Netlify. */
-export const ABOUT_URL = 'https://dragon.benkol.com';
+/** The page that explains the app, on Netlify, in the app's language. */
+export const aboutUrl = (lang: string) => (lang.startsWith('he') ? 'https://dragon.benkol.com/' : 'https://dragon.benkol.com/en/');
