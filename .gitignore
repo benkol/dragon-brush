@@ -14,3 +14,6 @@ public/mediapipe/wasm
 # Firebase CLI and emulator leftovers
 .firebase
 *.log
+
+# Netlify CLI link state
+.netlify
