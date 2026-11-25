@@ -43,8 +43,11 @@ export default function DesktopNotice() {
         <span className="big-emoji">📱🐲</span>
         <h2>{t('desktop.title')}</h2>
         <p>{t('desktop.body')}</p>
+        {/* Made by scripts/make-qr.mjs; points to the app. */}
+        <img className="desktop-qr" src="/qr.svg" alt={t('desktop.qrAlt')} width={180} height={180} />
+        <p className="muted small">{t('desktop.scan')}</p>
         <p className="desktop-url" dir="ltr">
-          {location.host}
+          dragon-brush.web.app
         </p>
         <button className="btn btn-primary" onClick={close}>
           {t('desktop.continue')}

@@ -1733,6 +1733,15 @@ p {
   }
 }
 
+.desktop-notice .desktop-qr {
+  width: 180px;
+  height: 180px;
+  padding: 8px;
+  background: #fff;
+  border: 3px solid var(--line);
+  border-radius: 16px;
+  image-rendering: pixelated;
+}
 .desktop-notice .desktop-url {
   font-size: 1.3rem;
   font-weight: 700;

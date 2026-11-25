@@ -35,7 +35,9 @@
   },
   "desktop": {
     "title": "Best on a phone",
-    "body": "Dragon Brush is made for mobile: it uses the front camera while your kid brushes, with the phone in your hand or on a stand. Open it on your phone at:",
+    "body": "Dragon Brush is made for mobile: it uses the front camera while your kid brushes, with the phone in your hand or on a stand. Open it on your phone:",
+    "scan": "Scan with your phone's camera, or type:",
+    "qrAlt": "QR code to open Dragon Brush on a phone",
     "continue": "Continue anyway"
   },
   "privacy": {
