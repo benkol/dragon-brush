@@ -1,8 +1,12 @@
 # Dragon Brush 🐲🪥
 
+**🌐 About the app: [dragon.benkol.com](https://dragon.benkol.com)** ([English](https://dragon.benkol.com/en/)) · **🎮 Play: [dragon-brush.web.app](https://dragon-brush.web.app)**
+
 A mobile web game that makes toothbrushing fun. The front camera tracks the kid's head, and a cute 3D dragon mirrors it. When the kid opens wide, the dragon breathes fire. The kid aims the fire at a marshmallow in each corner (top-right → top-left → bottom-left → bottom-right), 30 seconds each, for a full 2-minute brush. Tilting toward each corner with the mouth open helps the parent reach every area.
 
 Points, streaks, stickers, a hatching dragon egg, level-ups and real-life prizes keep kids coming back.
+
+Older kids can **brush by themselves** with the phone on a stand: the dragon brushes along and a mouth map guides them through 4 zones × outside, inside and chewing surfaces, then the tongue and "spit, don't rinse".
 
 ## Run it
 
@@ -83,3 +87,7 @@ On `localhost` against the real project, the browser console prints an App Check
 Crashes are saved to the `errors` collection (Firestore). The app can only write reports, not read them. Read them in the Firebase console.
 
 Each report has an `expireAt` date, 90 days out. To have Firestore delete old reports automatically, add a TTL policy once: Firebase console → **Firestore → TTL** (in the Google Cloud console) → **Create policy** → collection group `errors`, timestamp field `expireAt`.
+
+## Explainer page
+
+`site/` is the static page at [dragon.benkol.com](https://dragon.benkol.com) (Hebrew) and [/en/](https://dragon.benkol.com/en/) (English), hosted on Netlify. It has no build step: deploy the `site/` folder as is.
