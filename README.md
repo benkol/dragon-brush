@@ -94,4 +94,6 @@ Each report has an `expireAt` date, 90 days out. To have Firestore delete old re
 
 ## License
 
-[MIT](LICENSE)
+The code is under the [MIT license](LICENSE).
+
+**Except the voice clips:** the audio files in `public/voice/` were generated with [ElevenLabs](https://elevenlabs.io) and are **not** covered by the MIT license. They're included so the app works when you run it. To use them elsewhere, generate your own with `npm run voice` and your own ElevenLabs account.
