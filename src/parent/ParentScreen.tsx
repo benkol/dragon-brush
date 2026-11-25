@@ -8,7 +8,7 @@ import KidForm from '../kids/KidForm';
 import LogBrushModal from './LogBrushModal';
 import FamilySection from './FamilySection';
 import { BRUSH_MODES, type Kid } from '../data/types';
-import { DEMO_MODE } from '../config';
+import { ABOUT_URL, DEMO_MODE } from '../config';
 import { DIFFICULTIES } from '../game/difficulty';
 import { setTuningEnabled, tuningEnabled } from '../game/tuningPref';
 import { applyDentist, applyToothFairy } from '../rewards/scoring';
@@ -77,6 +77,9 @@ function AccountTab() {
         </button>
         <div className="row account-links">
           <Link to="/privacy">📷🔒 {t('privacy.link')}</Link>
+          <a href={ABOUT_URL} target="_blank" rel="noopener">
+            🐲 {t('about.link')}
+          </a>
           <span className="grow" />
           <button className="link-btn danger-link" onClick={() => setDeleting(true)}>
             {t('deleteAccount.open')}

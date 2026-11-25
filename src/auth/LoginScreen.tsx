@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useApp } from './AppProvider';
 import { LangButton, Screen } from '../ui/ui';
-import { DEMO_MODE, RECAPTCHA_SITE_KEY } from '../config';
+import { ABOUT_URL, DEMO_MODE, RECAPTCHA_SITE_KEY } from '../config';
 import { DragonImg } from '../ui/Preview';
 import { DEFAULT_EQUIPPED } from '../rewards/catalog';
 
@@ -90,6 +90,11 @@ export default function LoginScreen() {
       <p className="muted small center">
         📷🔒 {t('privacy.short')}{' '}
         <Link to="/privacy">{t('privacy.link')}</Link>
+      </p>
+      <p className="muted small center">
+        <a href={ABOUT_URL} target="_blank" rel="noopener">
+          🐲 {t('about.whatIs')}
+        </a>
       </p>
       {RECAPTCHA_SITE_KEY && <p className="recaptcha-note">{t('privacy.recaptcha')}</p>}
     </Screen>
