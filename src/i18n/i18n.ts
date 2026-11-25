@@ -12,9 +12,6 @@ function initialLang(): 'en' | 'he' {
   } catch {
     // ignore
   }
-  // A build can start in one language (the Hebrew Netlify site); the toggle still switches.
-  const fixed = import.meta.env.VITE_DEFAULT_LANG;
-  if (fixed === 'en' || fixed === 'he') return fixed;
   return navigator.language.startsWith('he') || navigator.language.startsWith('iw') ? 'he' : 'en';
 }
 

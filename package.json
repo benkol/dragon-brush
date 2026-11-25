@@ -12,7 +12,6 @@
     "voice": "node --env-file-if-exists=.env.local scripts/generate-voice.mjs",
     "emulators": "firebase emulators:start --only auth,firestore --project demo-dragon-brush",
     "build": "tsc -b && vite build",
-    "build:netlify": "tsc -b && vite build --mode netlify --outDir dist-netlify",
     "preview": "vite preview",
     "test": "vitest run",
     "test:rules": "firebase emulators:exec --only firestore --project demo-dragon-brush \"vitest run --config vitest.rules.config.ts\"",
